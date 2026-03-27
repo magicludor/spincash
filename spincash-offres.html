@@ -213,6 +213,18 @@ body.light .search-wrap input { background:#fff; border-color:#ccc; color:#1a1a1
   .search-wrap{margin-left:0;width:100%;}
   .search-wrap input{width:100%;}
   .offers-grid{grid-template-columns:1fr;}
+  /* Header mobile */
+  .header{padding:10px 1rem;gap:8px;flex-wrap:wrap;}
+  .tile{width:22px;height:22px;font-size:14px;}
+  .slogan{display:none;}
+  .header-nav{gap:6px;}
+  .btn-nav{padding:5px 10px;font-size:11px;}
+}
+@media(max-width:420px){
+  .tile{width:19px;height:19px;font-size:12px;}
+  /* Cacher "← Accueil" sur très petit écran */
+  .header-nav a[href="spincash-accueil.html"]{display:none;}
+  .btn-nav{padding:4px 8px;font-size:10px;}
 }
 </style>
 </head>
