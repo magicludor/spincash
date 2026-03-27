@@ -459,10 +459,10 @@ tr.equalite-row td { background:#fffbe6 !important; }
   /* Cacher "← Accueil" et badge profil */
   a.nav-btn-dash[href="spincash-accueil.html"] { display:none; }
   #profil-badge { display:none !important; }
-  /* Bouton switch : icône seule, taille fixe */
-  #btn-switch-view { padding:6px 10px !important; font-size:16px !important; border-radius:50% !important; min-width:36px; }
-  .btn-switch-label { font-size:0 !important; }
-  .btn-switch-label::first-letter { font-size:16px !important; }
+  /* Bouton switch : icône seule */
+  #btn-switch-view { padding:5px 9px !important; font-size:15px !important; border-radius:20px !important; }
+  .btn-switch-label { display:none !important; }
+  #btn-switch-view::before { content:attr(data-icon); font-size:16px; }
   .nav-tabs { width:100%; }
   .tab-btn { flex:1; text-align:center; padding:7px 4px; font-size:11px; }
   .admin-stats { grid-template-columns:repeat(2,1fr); }
@@ -528,7 +528,7 @@ tr.equalite-row td { background:#fffbe6 !important; }
       <a href="spincash-accueil.html" class="nav-btn-dash" style="padding:5px 12px;border-radius:20px;border:1.5px solid #333;color:#aaa;font-family:'Nunito',sans-serif;font-size:11px;font-weight:700;text-decoration:none;white-space:nowrap;" onmouseover="this.style.borderColor='#666';this.style.color='#fff'" onmouseout="this.style.borderColor='#333';this.style.color='#aaa'">← Accueil</a>
       <a href="spincash-offres.html" class="nav-btn-dash" style="padding:5px 12px;border-radius:20px;border:1.5px solid #333;color:#f58c1a;font-family:'Nunito',sans-serif;font-size:11px;font-weight:700;text-decoration:none;white-space:nowrap;" onmouseover="this.style.borderColor='#f58c1a'" onmouseout="this.style.borderColor='#333'">🛍️ Offres</a>
       <span id="profil-badge" style="padding:5px 12px;border-radius:20px;font-size:11px;font-weight:800;white-space:nowrap;"></span>
-      <button id="btn-switch-view" onclick="switchViewManual()" style="padding:5px 12px;border-radius:20px;font-size:11px;font-weight:800;background:transparent;border:1.5px solid #333;color:#aaa;cursor:pointer;white-space:nowrap;" onmouseover="this.style.borderColor='#666';this.style.color='#fff'" onmouseout="this.style.borderColor='#333';this.style.color='#aaa'"><span class="btn-switch-label"></span></button>
+      <button id="btn-switch-view" data-icon="🛠️" onclick="switchViewManual()" style="padding:5px 12px;border-radius:20px;font-size:11px;font-weight:800;background:transparent;border:1.5px solid #333;color:#aaa;cursor:pointer;white-space:nowrap;" onmouseover="this.style.borderColor='#666';this.style.color='#fff'" onmouseout="this.style.borderColor='#333';this.style.color='#aaa'"><span class="btn-switch-label"></span></button>
     </div>
   </div>
 
@@ -2315,12 +2315,14 @@ function switchViewManual() {
   if (adminVisible) {
     switchView('membre');
     document.getElementById('btn-switch-view').querySelector('.btn-switch-label').textContent = '🛠️ Vue Admin';
+    document.getElementById('btn-switch-view').setAttribute('data-icon','🛠️');
     document.getElementById('profil-badge').textContent = '👤 Membre';
     document.getElementById('profil-badge').style.cssText = 'padding:6px 14px;border-radius:20px;font-size:12px;font-weight:800;background:#001a00;color:#39e239;border:1px solid #003a00;';
     setTimeout(() => renderMembreChart(), 50);
   } else {
     switchView('admin');
     document.getElementById('btn-switch-view').querySelector('.btn-switch-label').textContent = '👤 Vue Membre';
+    document.getElementById('btn-switch-view').setAttribute('data-icon','👤');
     document.getElementById('profil-badge').textContent = '🛠️ Admin';
     document.getElementById('profil-badge').style.cssText = 'padding:6px 14px;border-radius:20px;font-size:12px;font-weight:800;background:#1a1a00;color:#f5e642;border:1px solid #3a3a00;';
     setTimeout(() => { renderAdminChart(); populerSelectAdmin(); }, 50);
@@ -2343,11 +2345,13 @@ function switchView(view) {
     badge.textContent = '🛠️ Admin';
     badge.style.cssText = 'padding:6px 14px;border-radius:20px;font-size:12px;font-weight:800;background:#1a1a00;color:#f5e642;border:1px solid #3a3a00;';
     document.getElementById('btn-switch-view').querySelector('.btn-switch-label').textContent = '👤 Vue Membre';
+    document.getElementById('btn-switch-view').setAttribute('data-icon','👤');
     setTimeout(() => { renderAdminChart(); populerSelectAdmin(); }, 200);
   } else {
     badge.textContent = '👤 Membre';
     badge.style.cssText = 'padding:6px 14px;border-radius:20px;font-size:12px;font-weight:800;background:#001a00;color:#39e239;border:1px solid #003a00;';
     document.getElementById('btn-switch-view').querySelector('.btn-switch-label').textContent = '🛠️ Vue Admin';
+    document.getElementById('btn-switch-view').setAttribute('data-icon','🛠️');
     setTimeout(() => renderMembreChart(), 200);
   }
 })();
