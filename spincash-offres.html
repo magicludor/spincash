@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Spincash — Offres du jour Ebuyclub</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --black:#0a0a0a; --card:#141414; --surface:#1a1a1a;
+  --border:#222; --text:#e8e4dc; --text-muted:#888;
+  --yellow:#f5e642; --cyan:#29c8e6; --green:#39e239;
+  --orange:#f58c1a; --pink:#e91e8c; --blue:#2196f3; --red:#e63329;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--black);color:var(--text);font-family:'Nunito',sans-serif;min-height:100vh;}
+
+/* HEADER */
+.header{
+  background:#0d0d0d;border-bottom:1px solid #1a1a1a;
+  padding:14px 2rem;display:flex;align-items:center;gap:16px;
+  position:sticky;top:0;z-index:100;
+}
+.logo-tiles{display:flex;gap:4px;}
+.tile{width:28px;height:28px;background:#1a1a1a;border-radius:5px;display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:18px;}
+.slogan{font-size:12px;color:#666;font-weight:700;letter-spacing:.5px;}
+.header-nav{margin-left:auto;display:flex;gap:8px;align-items:center;}
+.btn-nav{padding:6px 14px;border-radius:20px;border:1.5px solid #333;color:#aaa;font-family:'Nunito',sans-serif;font-size:12px;font-weight:700;text-decoration:none;transition:all .2s;background:transparent;cursor:pointer;}
+.btn-nav:hover{border-color:#666;color:#fff;}
+.btn-nav.active{background:var(--yellow);color:#000;border-color:var(--yellow);}
+
+/* HERO */
+.hero{
+  padding:3rem 2rem 2rem;max-width:1200px;margin:0 auto;
+  display:flex;align-items:flex-end;justify-content:space-between;gap:2rem;flex-wrap:wrap;
+}
+.hero-title{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(2.5rem,5vw,4rem);
+  line-height:1;letter-spacing:1px;
+}
+.hero-title span{color:var(--yellow);}
+.hero-sub{font-size:14px;color:var(--text-muted);margin-top:.5rem;max-width:480px;line-height:1.6;}
+.hero-badge{
+  background:#1a1a00;border:1px solid #3a3a00;
+  color:var(--yellow);padding:8px 16px;border-radius:20px;
+  font-size:12px;font-weight:800;white-space:nowrap;
+}
+.refresh-info{font-size:11px;color:#555;margin-top:6px;text-align:right;}
+
+/* FILTRES */
+.filters{
+  max-width:1200px;margin:0 auto;padding:0 2rem 1.5rem;
+  display:flex;gap:8px;flex-wrap:wrap;align-items:center;
+}
+.filter-btn{
+  padding:7px 16px;border-radius:20px;border:1.5px solid #2a2a2a;
+  background:transparent;color:var(--text-muted);
+  font-family:'Nunito',sans-serif;font-size:12px;font-weight:700;
+  cursor:pointer;transition:all .2s;
+}
+.filter-btn:hover{border-color:#555;color:var(--text);}
+.filter-btn.active{color:#000;border-color:transparent;}
+.filter-btn[data-cat="tous"].active{background:var(--yellow);}
+.filter-btn[data-cat="cashback"].active{background:var(--green);color:#fff;}
+.filter-btn[data-cat="bons"].active{background:var(--cyan);color:#000;}
+.filter-btn[data-cat="magasin"].active{background:var(--orange);color:#fff;}
+.filter-btn[data-cat="promo"].active{background:var(--pink);color:#fff;}
+.filter-btn[data-cat="exclu"].active{background:var(--red);color:#fff;}
+
+.search-wrap{margin-left:auto;position:relative;}
+.search-wrap input{
+  background:var(--surface);border:1.5px solid #2a2a2a;border-radius:20px;
+  color:var(--text);font-family:'Nunito',sans-serif;font-size:12px;font-weight:600;
+  padding:7px 16px 7px 34px;width:200px;transition:all .2s;
+}
+.search-wrap input:focus{outline:none;border-color:#555;width:240px;}
+.search-wrap::before{content:'🔍';position:absolute;left:10px;top:50%;transform:translateY(-50%);font-size:12px;}
+
+/* GRID */
+.offers-grid{
+  max-width:1200px;margin:0 auto;padding:0 2rem 3rem;
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem;
+}
+
+/* CARD */
+.offer-card{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:14px;overflow:hidden;
+  transition:transform .2s,border-color .2s;
+  position:relative;
+}
+.offer-card:hover{transform:translateY(-3px);border-color:#333;}
+.card-accent{height:3px;width:100%;}
+.card-body{padding:1.25rem;}
+.card-cat{
+  font-size:10px;font-weight:800;letter-spacing:1px;text-transform:uppercase;
+  margin-bottom:.5rem;display:flex;align-items:center;gap:6px;
+}
+.card-merchant{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:.5px;margin-bottom:.25rem;}
+.card-desc{font-size:12px;color:var(--text-muted);line-height:1.5;margin-bottom:1rem;}
+.card-rate{
+  font-family:'Bebas Neue',sans-serif;font-size:2.2rem;
+  line-height:1;margin-bottom:.25rem;
+}
+.card-rate-label{font-size:11px;color:var(--text-muted);margin-bottom:1rem;}
+.card-footer{display:flex;align-items:center;justify-content:space-between;gap:8px;}
+.card-tag{
+  font-size:10px;font-weight:800;padding:3px 10px;border-radius:10px;
+  background:#1a1a1a;color:#666;
+}
+.card-tag.hot{background:#2a0a00;color:#f58c1a;}
+.card-tag.new{background:#001a2a;color:#29c8e6;}
+.card-tag.exclu{background:#2a0000;color:#e63329;}
+.btn-offre{
+  padding:7px 14px;border-radius:20px;
+  font-family:'Nunito',sans-serif;font-size:11px;font-weight:800;
+  text-decoration:none;transition:all .2s;border:none;cursor:pointer;
+  white-space:nowrap;
+}
+.btn-offre:hover{opacity:.85;transform:scale(1.02);}
+
+/* SECTION LIENS RAPIDES */
+.quick-links{
+  max-width:1200px;margin:0 auto;padding:0 2rem 2rem;
+}
+.quick-links-title{
+  font-family:'Bebas Neue',sans-serif;font-size:1.4rem;
+  color:var(--text-muted);letter-spacing:1px;margin-bottom:1rem;
+}
+.quick-links-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:.75rem;}
+.quick-link-card{
+  background:var(--surface);border:1px solid #1a1a1a;border-radius:12px;
+  padding:1rem;text-decoration:none;color:var(--text);
+  display:flex;align-items:center;gap:10px;
+  transition:all .2s;
+}
+.quick-link-card:hover{background:#222;border-color:#333;transform:translateX(3px);}
+.quick-link-icon{font-size:1.5rem;flex-shrink:0;}
+.quick-link-label{font-size:13px;font-weight:700;}
+.quick-link-sub{font-size:11px;color:var(--text-muted);margin-top:2px;}
+
+/* NOTE BAS */
+.note{
+  max-width:1200px;margin:0 auto;padding:0 2rem 3rem;
+  font-size:11px;color:#444;line-height:1.6;
+  border-top:1px solid #1a1a1a;padding-top:1.5rem;
+}
+
+/* VIDE */
+.empty{
+  grid-column:1/-1;text-align:center;padding:3rem;
+  color:var(--text-muted);font-size:14px;
+}
+
+body.light {
+  --black:#f5f5f0; --card:#ffffff; --surface:#eeeeea;
+  --border:#ddd; --text:#1a1a1a; --text-muted:#666;
+}
+body.light .offer-card { box-shadow:0 2px 8px rgba(0,0,0,.06); }
+body.light .quick-link-card { background:#fff; border-color:#e0e0e0; }
+body.light .quick-link-card:hover { background:#f5f5f0; }
+body.light .header { background:#fff; border-color:#e0e0e0; }
+body.light .filter-btn { border-color:#ccc; color:#555; }
+body.light .search-wrap input { background:#fff; border-color:#ccc; color:#1a1a1a; }
+
+@media(max-width:700px){
+  .hero{flex-direction:column;align-items:flex-start;}
+  .search-wrap{margin-left:0;width:100%;}
+  .search-wrap input{width:100%;}
+  .offers-grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="logo-tiles">
+    <div class="tile" style="color:#e63329">S</div>
+    <div class="tile" style="color:#2196f3">P</div>
+    <div class="tile" style="color:#39e239">I</div>
+    <div class="tile" style="color:#f5e642">N</div>
+    <div class="tile" style="color:#f58c1a">C</div>
+    <div class="tile" style="color:#e91e8c">A</div>
+    <div class="tile" style="color:#29c8e6">S</div>
+    <div class="tile" style="color:#39e239">H</div>
+  </div>
+  <div class="slogan">Transformez vos achats en gains</div>
+  <div class="header-nav">
+    <a href="spincash-accueil.html" class="btn-nav">← Accueil</a>
+    <button class="btn-nav" onclick="document.getElementById('guide-offres').scrollIntoView({behavior:'smooth'});setTimeout(()=>{if(document.getElementById('guide-body').style.display!=='block')toggleGuide();},400);" style="position:relative;">
+      📖 Guide
+      <span style="position:absolute;top:-4px;right:-4px;background:var(--cyan);color:#000;font-size:9px;font-weight:800;padding:1px 5px;border-radius:8px;">8</span>
+    </button>
+    <a href="spincash-dashboard.html" class="btn-nav">Mon espace</a>
+    <a href="#" class="btn-nav active">🛍️ Offres du jour</a>
+    <div style="display:flex;align-items:center;gap:6px;margin-left:4px;">
+      <span style="font-size:14px;" id="theme-icon-offres">☀️</span>
+      <div onclick="toggleThemeOffres()" style="width:40px;height:22px;background:#333;border-radius:11px;cursor:pointer;position:relative;transition:background .3s;" id="toggle-offres">
+        <div id="toggle-knob-offres" style="position:absolute;top:3px;left:3px;width:16px;height:16px;background:#f5e642;border-radius:50%;transition:left .3s;"></div>
+      </div>
+      <span style="font-size:14px;">🌙</span>
+    </div>
+  </div>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div>
+    <div class="hero-title">Offres du jour<br><span>Ebuyclub</span></div>
+    <div class="hero-sub">Toutes les meilleures offres cashback, bons d'achat et codes promo sélectionnés pour maximiser vos gains Spincash.</div>
+  </div>
+  <div>
+    <div class="hero-badge">🔥 Mis à jour quotidiennement</div>
+    <div class="refresh-info">Données actualisées chaque matin via Ebuyclub</div>
+  </div>
+</div>
+
+<!-- GUIDE INTERACTIF -->
+<div id="guide-offres" style="max-width:1200px;margin:0 auto 1.5rem;padding:0 2rem;">
+  <div style="background:#141414;border:1.5px solid #003a3a;border-radius:14px;overflow:hidden;">
+    <div onclick="toggleGuide()" style="padding:.85rem 1.25rem;cursor:pointer;display:flex;align-items:center;justify-content:space-between;user-select:none;background:linear-gradient(90deg,#001a1a,transparent);">
+      <div style="display:flex;align-items:center;gap:10px;">
+        <span style="font-size:1.2rem;">📖</span>
+        <div>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:.5px;color:#29c8e6;">Guide Spincash</div>
+          <div style="font-size:10px;color:#888;">8 étapes pour maîtriser l'outil</div>
+        </div>
+        <span id="guide-badge-nouveau" style="background:#29c8e6;color:#000;font-size:10px;font-weight:800;padding:2px 8px;border-radius:10px;margin-left:4px;">NOUVEAU</span>
+      </div>
+      <span id="guide-chevron" style="font-size:18px;color:#29c8e6;transition:transform .3s;">▼</span>
+    </div>
+    <div id="guide-body" style="display:none;border-top:1px solid #003a3a;">
+      <div style="padding:1rem 1.25rem 0;">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+          <span style="font-size:11px;font-weight:800;color:#888;text-transform:uppercase;letter-spacing:.5px;">Étape <span id="guide-current">1</span> / <span id="guide-total">8</span></span>
+          <span style="font-size:11px;color:#888;" id="guide-category"></span>
+        </div>
+        <div style="height:4px;background:#1a1a1a;border-radius:2px;overflow:hidden;">
+          <div id="guide-progress" style="height:100%;background:#29c8e6;transition:width .3s;border-radius:2px;"></div>
+        </div>
+      </div>
+      <div style="padding:1.25rem;min-height:260px;color:#e8e4dc;" id="guide-slide"></div>
+      <div style="padding:0 1.25rem 1.25rem;display:flex;gap:8px;align-items:center;justify-content:space-between;">
+        <button onclick="guideNav(-1)" id="guide-prev" style="padding:7px 16px;border-radius:20px;border:1.5px solid #333;background:transparent;color:#aaa;font-family:'Nunito',sans-serif;font-size:12px;font-weight:700;cursor:pointer;">← Précédent</button>
+        <div style="display:flex;gap:6px;" id="guide-dots"></div>
+        <button onclick="guideNav(1)" id="guide-next" style="padding:7px 16px;border-radius:20px;background:#29c8e6;color:#000;border:none;font-family:'Nunito',sans-serif;font-size:12px;font-weight:800;cursor:pointer;">Suivant →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FILTRES -->
+<div class="filters">
+  <button class="filter-btn active" data-cat="tous" onclick="filtrer('tous',this)">Tout voir</button>
+  <button class="filter-btn" data-cat="exclu" onclick="filtrer('exclu',this)">⚡ En exclusivité</button>
+  <button class="filter-btn" data-cat="cashback" onclick="filtrer('cashback',this)">💰 Cashback en ligne</button>
+  <button class="filter-btn" data-cat="bons" onclick="filtrer('bons',this)">🎁 Bons d'achat</button>
+  <button class="filter-btn" data-cat="magasin" onclick="filtrer('magasin',this)">🏪 En magasin</button>
+  <button class="filter-btn" data-cat="promo" onclick="filtrer('promo',this)">🏷️ Codes promo</button>
+  <div class="search-wrap">
+    <input type="text" placeholder="Rechercher un marchand..." oninput="rechercher(this.value)" id="search-input" />
+  </div>
+</div>
+
+<!-- GRILLE OFFRES -->
+<div class="offers-grid" id="offers-grid"></div>
+
+<!-- LIENS RAPIDES EBUYCLUB -->
+<div class="quick-links">
+  <div class="quick-links-title">Accès direct Ebuyclub →</div>
+  <div class="quick-links-grid">
+    <a href="https://www.ebuyclub.com/en-exclu" target="_blank" class="quick-link-card">
+      <div class="quick-link-icon">⚡</div>
+      <div>
+        <div class="quick-link-label">Offres en exclusivité</div>
+        <div class="quick-link-sub">Boosts de cashback temporaires</div>
+      </div>
+    </a>
+    <a href="https://www.ebuyclub.com/bons-d-achat" target="_blank" class="quick-link-card">
+      <div class="quick-link-icon">🎁</div>
+      <div>
+        <div class="quick-link-label">Bons d'achat & Ebuycards</div>
+        <div class="quick-link-sub">Acheter vos bons d'achat</div>
+      </div>
+    </a>
+    <a href="https://www.ebuyclub.com/cashback-en-magasin" target="_blank" class="quick-link-card">
+      <div class="quick-link-icon">🏪</div>
+      <div>
+        <div class="quick-link-label">Cashback en magasin</div>
+        <div class="quick-link-sub">Offres près de chez vous</div>
+      </div>
+    </a>
+    <a href="https://www.ebuyclub.com/codes-promo" target="_blank" class="quick-link-card">
+      <div class="quick-link-icon">🏷️</div>
+      <div>
+        <div class="quick-link-label">Codes promo</div>
+        <div class="quick-link-sub">Réductions immédiates</div>
+      </div>
+    </a>
+    <a href="https://www.ebuyclub.com/cashback" target="_blank" class="quick-link-card">
+      <div class="quick-link-icon">💰</div>
+      <div>
+        <div class="quick-link-label">Tout le cashback</div>
+        <div class="quick-link-sub">+3200 marchands partenaires</div>
+      </div>
+    </a>
+    <a href="https://www.ebuyclub.com/moncompte/cagnotte" target="_blank" class="quick-link-card">
+      <div class="quick-link-icon">💼</div>
+      <div>
+        <div class="quick-link-label">Ma cagnotte</div>
+        <div class="quick-link-sub">Voir mes gains validés</div>
+      </div>
+    </a>
+  </div>
+</div>
+
+<div class="note">
+  ⚠️ Les taux de cashback sont indicatifs et peuvent varier. Vérifiez toujours les conditions sur la page du marchand Ebuyclub avant d'effectuer votre achat. En phase prototype, ces données sont représentatives — elles seront synchronisées automatiquement avec Ebuyclub en production via le VPS Spincash.
+</div>
+
+<script>
+const offres = [
+  // EN EXCLUSIVITÉ
+  { id:1, cat:'exclu', marchand:'Fnac', emoji:'📚', desc:'Boost exclusif ce mois — cumulable avec les bons d\'achat Fnac', taux:'10%', label:'Cashback boosté', tag:'exclu', tagLabel:'EXCLU', couleur:'#e63329', url:'https://www.ebuyclub.com/en-exclu' },
+  { id:2, cat:'exclu', marchand:'Cdiscount', emoji:'🛒', desc:'Offre temporaire — high-tech, électroménager, mode', taux:'8%', label:'Cashback boosté', tag:'exclu', tagLabel:'EXCLU', couleur:'#e63329', url:'https://www.ebuyclub.com/en-exclu' },
+  { id:3, cat:'exclu', marchand:'Darty', emoji:'🔌', desc:'Boost électroménager et multimédia ce mois', taux:'10%', label:'Cashback boosté', tag:'hot', tagLabel:'HOT', couleur:'#e63329', url:'https://www.ebuyclub.com/en-exclu' },
+
+  // CASHBACK EN LIGNE
+  { id:4, cat:'cashback', marchand:'Amazon', emoji:'📦', desc:'Cashback sur une sélection de catégories — vérifier les conditions', taux:'3%', label:'Cashback en ligne', tag:'', tagLabel:'', couleur:'#39e239', url:'https://www.ebuyclub.com/cashback/amazon' },
+  { id:5, cat:'cashback', marchand:'Booking', emoji:'🏨', desc:'Hôtels et locations de vacances — toute destination', taux:'5%', label:'Cashback en ligne', tag:'hot', tagLabel:'HOT', couleur:'#39e239', url:'https://www.ebuyclub.com/cashback/booking' },
+  { id:6, cat:'cashback', marchand:'Zalando', emoji:'👗', desc:'Mode, chaussures, accessoires — hors articles soldés', taux:'4%', label:'Cashback en ligne', tag:'', tagLabel:'', couleur:'#39e239', url:'https://www.ebuyclub.com/cashback/zalando' },
+  { id:7, cat:'cashback', marchand:'SNCF', emoji:'🚄', desc:'Billets de train — TGV, Intercités, TER', taux:'3%', label:'Cashback en ligne', tag:'new', tagLabel:'NEW', couleur:'#39e239', url:'https://www.ebuyclub.com/cashback/sncf' },
+  { id:8, cat:'cashback', marchand:'Decathlon', emoji:'⚽', desc:'Sport et outdoor — toutes catégories éligibles', taux:'4%', label:'Cashback en ligne', tag:'', tagLabel:'', couleur:'#39e239', url:'https://www.ebuyclub.com/cashback/decathlon' },
+  { id:9, cat:'cashback', marchand:'Airbnb', emoji:'🏠', desc:'Locations courte et longue durée partout dans le monde', taux:'4%', label:'Cashback en ligne', tag:'hot', tagLabel:'HOT', couleur:'#39e239', url:'https://www.ebuyclub.com/cashback/airbnb' },
+
+  // BONS D'ACHAT
+  { id:10, cat:'bons', marchand:'Fnac', emoji:'📚', desc:'Bon d\'achat + 10% de cashback Ebuyclub instantané', taux:'+10%', label:'Cashback sur bon', tag:'hot', tagLabel:'HOT', couleur:'#29c8e6', url:'https://www.ebuyclub.com/bons-d-achat/fnac' },
+  { id:11, cat:'bons', marchand:'Carrefour', emoji:'🛍️', desc:'Courses alimentaires et produits du quotidien', taux:'+6%', label:'Cashback sur bon', tag:'', tagLabel:'', couleur:'#29c8e6', url:'https://www.ebuyclub.com/bons-d-achat/carrefour' },
+  { id:12, cat:'bons', marchand:'Amazon', emoji:'📦', desc:'Bon d\'achat Amazon avec cashback immédiat', taux:'+4%', label:'Cashback sur bon', tag:'new', tagLabel:'NEW', couleur:'#29c8e6', url:'https://www.ebuyclub.com/bons-d-achat/amazon' },
+  { id:13, cat:'bons', marchand:'Leclerc', emoji:'🛒', desc:'Courses et produits Leclerc — utilisable en magasin', taux:'+5%', label:'Cashback sur bon', tag:'', tagLabel:'', couleur:'#29c8e6', url:'https://www.ebuyclub.com/bons-d-achat/leclerc' },
+
+  // CASHBACK EN MAGASIN
+  { id:14, cat:'magasin', marchand:'Monoprix', emoji:'🥗', desc:'Courses du quotidien — scannez votre ticket de caisse', taux:'3%', label:'Cashback magasin', tag:'', tagLabel:'', couleur:'#f58c1a', url:'https://www.ebuyclub.com/cashback-en-magasin' },
+  { id:15, cat:'magasin', marchand:'Sephora', emoji:'💄', desc:'Cosmétiques et parfums — applicable en boutique', taux:'5%', label:'Cashback magasin', tag:'hot', tagLabel:'HOT', couleur:'#f58c1a', url:'https://www.ebuyclub.com/cashback-en-magasin' },
+  { id:16, cat:'magasin', marchand:'Nike', emoji:'👟', desc:'Chaussures et vêtements de sport — boutiques officielles', taux:'4%', label:'Cashback magasin', tag:'', tagLabel:'', couleur:'#f58c1a', url:'https://www.ebuyclub.com/cashback-en-magasin' },
+
+  // CODES PROMO
+  { id:17, cat:'promo', marchand:'Shein', emoji:'👘', desc:'-15% sur votre commande — cumulable avec le cashback', taux:'-15%', label:'Code promo', tag:'exclu', tagLabel:'EXCLU', couleur:'#e91e8c', url:'https://www.ebuyclub.com/codes-promo/shein' },
+  { id:18, cat:'promo', marchand:'AliExpress', emoji:'🎁', desc:'-10% dès 20€ d\'achat — offre limitée', taux:'-10%', label:'Code promo', tag:'hot', tagLabel:'HOT', couleur:'#e91e8c', url:'https://www.ebuyclub.com/codes-promo/aliexpress' },
+  { id:19, cat:'promo', marchand:'Cdiscount', emoji:'🛒', desc:'-5% supplémentaires sur les promos en cours', taux:'-5%', label:'Code promo', tag:'', tagLabel:'', couleur:'#e91e8c', url:'https://www.ebuyclub.com/codes-promo/cdiscount' },
+];
+
+let catActive = 'tous';
+let searchTerm = '';
+
+function couleurBtn(couleur) {
+  return `background:${couleur};color:${couleur === '#f5e642' || couleur === '#29c8e6' ? '#000' : '#fff'};`;
+}
+
+function renderCards(liste) {
+  const grid = document.getElementById('offers-grid');
+  if (liste.length === 0) {
+    grid.innerHTML = '<div class="empty">Aucune offre trouvée pour cette recherche.</div>';
+    return;
+  }
+  grid.innerHTML = liste.map(o => `
+    <div class="offer-card">
+      <div class="card-accent" style="background:${o.couleur};"></div>
+      <div class="card-body">
+        <div class="card-cat" style="color:${o.couleur};">
+          <span>${o.emoji}</span> ${o.label}
+        </div>
+        <div class="card-merchant">${o.marchand}</div>
+        <div class="card-desc">${o.desc}</div>
+        <div class="card-rate" style="color:${o.couleur};">${o.taux}</div>
+        <div class="card-rate-label">${o.cat === 'promo' ? 'de réduction' : o.cat === 'bons' ? 'cashback instantané sur bon' : 'de cashback'}</div>
+        <div class="card-footer">
+          ${o.tagLabel ? `<span class="card-tag ${o.tag}">${o.tagLabel}</span>` : '<span></span>'}
+          <a href="${o.url}" target="_blank" class="btn-offre" style="${couleurBtn(o.couleur)}">
+            Profiter →
+          </a>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function filtrer(cat, btn) {
+  catActive = cat;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  appliquerFiltres();
+}
+
+function rechercher(val) {
+  searchTerm = val.toLowerCase();
+  appliquerFiltres();
+}
+
+function appliquerFiltres() {
+  let liste = offres;
+  if (catActive !== 'tous') liste = liste.filter(o => o.cat === catActive);
+  if (searchTerm) liste = liste.filter(o => o.marchand.toLowerCase().includes(searchTerm) || o.desc.toLowerCase().includes(searchTerm));
+  renderCards(liste);
+}
+
+function toggleThemeOffres() {
+  const isLight = document.body.classList.toggle('light');
+  const knob = document.getElementById('toggle-knob-offres');
+  const tog  = document.getElementById('toggle-offres');
+  const icon = document.getElementById('theme-icon-offres');
+  if (isLight) {
+    knob.style.left = '21px';
+    tog.style.background = '#ccc';
+    icon.textContent = '🌙';
+  } else {
+    knob.style.left = '3px';
+    tog.style.background = '#333';
+    icon.textContent = '☀️';
+  }
+  localStorage.setItem('spincash-theme-offres', isLight ? 'light' : 'dark');
+}
+// Restore theme
+if (localStorage.getItem('spincash-theme-offres') === 'light') toggleThemeOffres();
+
+// ── GUIDE INTERACTIF ──
+let guideIndex = 0;
+const spin = { green:'#39e239', yellow:'#f5e642', cyan:'#29c8e6', orange:'#f58c1a', pink:'#e91e8c', blue:'#2196f3', surface:'#1a1a1a', muted:'#888' };
+function gv(v){ return v.replace(/var\(--spin-green\)/g,spin.green).replace(/var\(--spin-yellow\)/g,spin.yellow).replace(/var\(--spin-cyan\)/g,spin.cyan).replace(/var\(--spin-orange\)/g,spin.orange).replace(/var\(--spin-pink\)/g,spin.pink).replace(/var\(--spin-blue\)/g,spin.blue).replace(/var\(--surface\)/g,spin.surface).replace(/var\(--text-muted\)/g,spin.muted); }
+
+const guideSlides = [
+  { cat:'🟢 Ebuyclub — Bases', titre:'Les 3 types de cashback Ebuyclub', emoji:'🛒', couleur:spin.green, contenu: gv(`<p style="margin-bottom:1rem;color:var(--text-muted);font-size:13px;line-height:1.7;">Selon votre achat, le processus d'activation est différent — choisissez le bon type :</p><div style="display:flex;flex-direction:column;gap:10px;"><div style="padding:12px;background:var(--surface);border-left:3px solid var(--spin-green);border-radius:8px;"><div style="font-weight:800;color:var(--spin-green);margin-bottom:6px;">💻 Cashback en ligne</div><div style="font-size:12px;color:var(--text-muted);line-height:1.6;">Connectez-vous à Ebuyclub → recherchez votre marchand → cliquez sur "Activer le cashback" → passez votre commande <strong>sans quitter l'onglet</strong>. Acceptez les cookies du marchand. N'utilisez pas de code promo externe à Ebuyclub.</div></div><div style="padding:12px;background:var(--surface);border-left:3px solid var(--spin-cyan);border-radius:8px;"><div style="font-weight:800;color:var(--spin-cyan);margin-bottom:6px;">🎁 Cashback en bon d'achat</div><div style="font-size:12px;color:var(--text-muted);line-height:1.8;">Sur Ebuyclub, achetez un bon d'achat Fnac, Carrefour, Amazon... Cashback <strong style="color:var(--spin-green);">instantané</strong>.<br><br><div style="background:#001a1a;border:1px solid #003a3a;border-radius:8px;padding:8px 10px;margin:6px 0;">📱 <strong style="color:var(--spin-cyan);">Application obligatoire !</strong> Livré <strong style="color:#fff;">exclusivement dans l'appli Ebuyclub</strong> sous forme de code barre.<br><br>👉 <a href="https://www.ebuyclub.com/application-mobile" target="_blank" style="color:var(--spin-cyan);font-weight:800;text-decoration:underline;">Télécharger l'appli Ebuyclub →</a><br><span style="font-size:11px;color:#555;">Android (Google Play) et iOS (App Store)</span></div><div style="background:#1a1000;border:1px solid #3a2800;border-radius:8px;padding:8px 10px;margin:6px 0;">💡 <strong style="color:var(--spin-yellow);">Astuce réseau :</strong> <strong style="color:#fff;">photographiez votre code barre</strong> avant d'aller en magasin — utile sans réseau !</div></div></div><div style="padding:12px;background:var(--surface);border-left:3px solid var(--spin-orange);border-radius:8px;"><div style="font-weight:800;color:var(--spin-orange);margin-bottom:6px;">🏪 Cashback connecté (en magasin)</div><div style="font-size:12px;color:var(--text-muted);line-height:1.6;">Liez votre carte bancaire une fois dans l'appli. Cashback automatique à chaque paiement CB chez un partenaire — <strong>sans rien faire</strong>.</div></div></div><div style="margin-top:.75rem;padding:8px 12px;background:#001a00;border-radius:8px;font-size:11px;color:var(--spin-green);">💡 Les 3 types de cashback comptent dans votre cagnotte validée Spincash — combinez-les !</div>`) },
+  { cat:'🟢 Ebuyclub — Cagnotte', titre:'Comprendre votre cagnotte', emoji:'💼', couleur:spin.yellow, contenu: gv(`<p style="margin-bottom:1rem;color:var(--text-muted);font-size:13px;">Votre cagnotte Ebuyclub a deux statuts importants :</p><div style="display:flex;flex-direction:column;gap:10px;margin-bottom:1rem;"><div style="padding:12px;background:#001a00;border-left:3px solid #39e239;border-radius:8px;"><div style="font-weight:800;color:#39e239;margin-bottom:6px;">✅ Validés</div><div style="font-size:12px;color:var(--text-muted);line-height:1.6;">Cashback confirmé. <strong style="color:#fff;">C'est ce montant que vous déclarez dans Spincash.</strong><br>• Bons d'achat : <strong style="color:#39e239;">instantané</strong><br>• Cashback en ligne : 48h à 90 jours<br>• Voyages : jusqu'à 90 jours après retour</div></div><div style="padding:12px;background:#1a1000;border-left:3px solid #f58c1a;border-radius:8px;"><div style="font-weight:800;color:#f58c1a;margin-bottom:6px;">⏳ En attente</div><div style="font-size:12px;color:var(--text-muted);line-height:1.6;">Détecté mais pas confirmé. <strong style="color:#fff;">Ne pas déclarer dans Spincash</strong> — peut être annulé.</div></div></div><div style="padding:8px 12px;background:#1a1a00;border-radius:8px;font-size:11px;color:#f5e642;">💡 Déclarez uniquement le montant <strong>"Validés"</strong> (en vert) entre le 1er et le 5 du mois.</div>`) },
+  { cat:'🟢 Ebuyclub — Astuces', titre:'Les erreurs qui annulent le cashback', emoji:'⚠️', couleur:spin.orange, contenu: gv(`<p style="margin-bottom:.75rem;color:var(--text-muted);font-size:13px;">Ces erreurs fréquentes peuvent faire disparaître votre cashback en ligne :</p><div style="display:flex;flex-direction:column;gap:6px;margin-bottom:1rem;">${[['Utiliser un code promo d\'un autre site qu\'Ebuyclub','❌'],['Ouvrir un autre site entre Ebuyclub et le marchand','❌'],['Bloquer les cookies du marchand (adblock, navigateur privé)','❌'],['Avoir un VPN actif lors de l\'achat','❌'],['Retourner ou annuler sa commande après activation','❌'],['Ne pas être connecté à Ebuyclub avant de cliquer','❌'],['Payer entièrement avec un bon d\'achat ou un avoir (cashback en ligne uniquement)','❌']].map(([t,e])=>`<div style="display:flex;gap:10px;align-items:center;padding:8px 10px;background:var(--surface);border-radius:8px;font-size:12px;"><span style="flex-shrink:0;">${e}</span><span>${t}</span></div>`).join('')}</div><div style="background:#1a0a00;border:1px solid #3a2000;border-radius:8px;padding:10px 12px;font-size:11px;line-height:1.8;"><div style="font-weight:800;color:var(--spin-yellow);margin-bottom:4px;">💡 Astuces bonus Ebuycard</div><div style="color:var(--text-muted);">✨ Virer sa cagnotte sur son wallet Ebuycard → <strong style="color:var(--spin-green);">+2% de cashback</strong><br>✨ Acheter ou créditer une Ebuycard → <strong style="color:var(--spin-green);">+0,5% de cashback</strong></div></div>`) },
+  { cat:'🔵 Spincash — Saisie', titre:'Déclarer votre cagnotte dans Spincash', emoji:'📝', couleur:spin.cyan, contenu: gv(`<p style="margin-bottom:1rem;color:var(--text-muted);font-size:13px;">Entre le 1er et le 5 de chaque mois :</p><div style="display:flex;flex-direction:column;gap:8px;">${[['Connectez-vous à votre espace Spincash','1'],['Allez voir votre cagnotte sur Ebuyclub — notez le montant <strong style="color:#39e239;">Validés</strong>','2'],['Saisissez ce montant dans Spincash <strong style="color:#fff;">(pas le total, pas "En attente")</strong>','3'],['Prenez une capture d\'écran de votre cagnotte Ebuyclub','4'],['Glissez la capture ou cliquez pour sélectionner — l\'IA vérifie automatiquement','5'],['Cliquez sur "Valider →"','6']].map(([t,n])=>`<div style="display:flex;gap:10px;align-items:flex-start;padding:8px 10px;background:var(--surface);border-radius:8px;"><div style="width:22px;height:22px;border-radius:50%;background:var(--spin-cyan);color:#000;font-weight:800;font-size:11px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">${n}</div><div style="font-size:12px;font-weight:600;">${t}</div></div>`).join('')}</div><div style="margin-top:.75rem;padding:8px 12px;background:#001a1a;border:1px solid #003a3a;border-radius:8px;font-size:11px;color:var(--spin-cyan);">💡 Si vous avez un reliquat du mois précédent, il sera <strong style="color:#fff;">automatiquement ajouté</strong> à votre cagnotte.</div>`) },
+  { cat:'🔵 Spincash — Redistribution', titre:'Envoyer vos Ebuycards aux tuteurs', emoji:'🎁', couleur:spin.yellow, contenu: gv(`<p style="margin-bottom:.75rem;color:var(--text-muted);font-size:13px;">Dès 20 € validés :</p><div style="display:flex;flex-direction:column;gap:7px;margin-bottom:.75rem;">${[['Virez votre cagnotte sur votre wallet Ebuycard → <strong style="color:#39e239;">+2% de cashback</strong>','1'],['Achetez 2 Ebuycards de 5 € par CB → <strong style="color:#39e239;">+0,5% par Ebuycard</strong>','2'],['Cochez "Je souhaite l\'offrir" et saisissez l\'email de votre tuteur','3'],['Votre tuteur reçoit un email — procédure ci-dessous','4']].map(([t,n])=>`<div style="display:flex;gap:10px;align-items:flex-start;padding:8px 10px;background:var(--surface);border-radius:8px;"><div style="width:22px;height:22px;border-radius:50%;background:var(--spin-yellow);color:#000;font-weight:800;font-size:11px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">${n}</div><div style="font-size:12px;font-weight:600;">${t}</div></div>`).join('')}</div><div style="background:#2a0000;border:1.5px solid #e63329;border-radius:8px;padding:10px 12px;font-size:11px;line-height:1.7;"><div style="font-weight:800;color:#e63329;margin-bottom:4px;">⚠️ Procédure côté tuteur</div><div style="color:#ddd;">Le tuteur reçoit un email "votre surprise eBuyCard vous attend".<br><strong style="color:#e63329;">NE PAS cliquer sur le bouton vert</strong> — cela créerait un nouveau compte !<br><br>✅ Lire la <strong style="color:#fff;">zone bleue</strong> → Ebuyclub → Mes bons d'achat → Wallet → Mes cadeaux → "J'ai reçu un bon d'achat" → saisir le pseudo + code</div></div>`) },
+  { cat:'🔵 Spincash — Parrainage', titre:'Parrainer un nouveau membre', emoji:'👥', couleur:spin.pink, contenu: gv(`<p style="margin-bottom:.75rem;color:var(--text-muted);font-size:13px;">Deux façons d'intégrer quelqu'un à Spincash :</p><div style="display:flex;flex-direction:column;gap:10px;margin-bottom:.75rem;"><div style="padding:12px;background:var(--surface);border-left:3px solid var(--spin-pink);border-radius:8px;"><div style="font-weight:800;color:var(--spin-pink);margin-bottom:6px;">Filleul Ebuyclub</div><div style="font-size:12px;color:var(--text-muted);line-height:1.6;">Personne <strong style="color:#fff;">pas encore sur Ebuyclub</strong> — utilisez le formulaire "Parrainer" dans votre espace.<br><br>Vous recevez : <strong style="color:var(--spin-green);">3 €</strong> dès son 1er cashback + <strong style="color:var(--spin-green);">10% de son cashback à vie</strong></div></div><div style="padding:10px 12px;background:#0a1a0a;border:1px solid #1a3a1a;border-radius:8px;"><div style="font-weight:800;color:var(--spin-green);margin-bottom:4px;">💡 Astuce — Offrir une Ebuycard de 5 €</div><div style="font-size:11px;color:var(--text-muted);line-height:1.7;">Le filleul reçoit 5 € + 3 € de bonus = <strong style="color:var(--spin-green);">8 € offerts</strong>. Vous récupérez 3 € de parrainage → investissement réel ~2 €</div></div><div style="padding:12px;background:var(--surface);border-left:3px solid var(--spin-blue);border-radius:8px;"><div style="font-weight:800;color:var(--spin-blue);margin-bottom:6px;">Filleul Spincash (webinaire)</div><div style="font-size:12px;color:var(--text-muted);">Offerts lors des webinaires selon votre classement de points. <strong style="color:#fff;">1 point = 1 mois qualifié.</strong></div></div></div><div style="background:#2a0000;border:1.5px solid #e63329;border-radius:8px;padding:10px 12px;font-size:11px;line-height:1.7;"><div style="font-weight:800;color:#e63329;margin-bottom:4px;">⚠️ La personne a déjà un compte Ebuyclub ?</div><div style="color:#ddd;">Elle doit <strong style="color:#fff;">fermer son compte</strong> et en créer un nouveau avec une nouvelle adresse email via votre lien de parrainage.</div></div>`) },
+  { cat:'🟡 Spincash — Tombola', titre:'Participer à la tombola mensuelle', emoji:'🎰', couleur:spin.pink, contenu: gv(`<p style="margin-bottom:1rem;color:var(--text-muted);font-size:13px;">Automatique — pas d'action requise si vous êtes qualifié :</p><div style="display:flex;flex-direction:column;gap:10px;margin-bottom:1rem;"><div style="padding:12px;background:var(--surface);border-radius:8px;font-size:12px;"><strong style="color:var(--spin-pink);display:block;margin-bottom:8px;">Conditions :</strong>✅ Cagnotte ≥ 20 € validés ce mois<br>✅ Redistribution Ebuycards effectuée aux tuteurs</div><div style="padding:12px;background:var(--surface);border-radius:8px;font-size:12px;"><strong style="color:var(--spin-yellow);display:block;margin-bottom:8px;">Comment ça fonctionne :</strong>🎯 20% de la cagnotte admin → bons d'achat de 10 €<br>🎲 Tirage au sort parmi les membres qualifiés<br>📧 Les gagnants reçoivent leur bon <strong style="color:#fff;">par email directement d'Ebuyclub</strong></div></div><div style="padding:8px 12px;background:#1a001a;border-radius:8px;font-size:11px;color:var(--spin-pink);">💡 La tombola n'a lieu que si la cagnotte admin atteint <strong style="color:#fff;">50 € minimum</strong> ce mois.</div>`) },
+  { cat:'🟠 Spincash — Offres', titre:'Utiliser les offres du jour', emoji:'🛍️', couleur:spin.orange, contenu: gv(`<p style="margin-bottom:.75rem;color:var(--text-muted);font-size:13px;">La page "Offres du jour" vous aide à maximiser votre cashback :</p><div style="display:flex;flex-direction:column;gap:6px;margin-bottom:.75rem;">${[['⚡ En exclusivité','Cashbacks boostés temporaires — souvent les meilleurs taux du moment'],['💰 Cashback en ligne','Remboursement sur vos achats en ligne chez +3200 marchands'],['🎁 Bons d\'achat','Cashback instantané — livré dans l\'appli Ebuyclub. Photographiez le code barre avant d\'aller en magasin !'],['🏪 En magasin','Cashback connecté (CB liée) ou ticket de caisse via l\'appli'],['🏷️ Codes promo','Réductions immédiates cumulables avec le cashback si indiqué']].map(([t,d])=>`<div style="padding:8px 10px;background:var(--surface);border-radius:8px;"><div style="font-size:12px;font-weight:800;margin-bottom:2px;">${t}</div><div style="font-size:11px;color:var(--text-muted);">${d}</div></div>`).join('')}</div><div style="background:#1a0a00;border:1px solid #3a2000;border-radius:8px;padding:8px 12px;font-size:11px;line-height:1.8;color:var(--text-muted);">💡 <strong style="color:var(--spin-orange);">Rappel :</strong> Virer cagnotte → Ebuycard = <strong style="color:var(--spin-green);">+2%</strong> · Acheter/créditer Ebuycard = <strong style="color:var(--spin-green);">+0,5%</strong></div>`) },
+];
+
+function toggleGuide() {
+  const body = document.getElementById('guide-body');
+  const chevron = document.getElementById('guide-chevron');
+  const open = body.style.display === 'block';
+  body.style.display = open ? 'none' : 'block';
+  chevron.style.transform = open ? '' : 'rotate(180deg)';
+  if (!open) {
+    renderGuide();
+    const firstOpen = localStorage.getItem('spincash-guide-first-open');
+    if (!firstOpen) localStorage.setItem('spincash-guide-first-open', Date.now());
+  }
+}
+
+// Vérification badge au chargement
+(function() {
+  const firstOpen = localStorage.getItem('spincash-guide-first-open');
+  const badge = document.getElementById('guide-badge-nouveau');
+  if (badge && firstOpen && (Date.now() - parseInt(firstOpen)) > 7 * 24 * 60 * 60 * 1000) {
+    badge.style.display = 'none';
+  }
+})();
+
+function renderGuide() {
+  const s = guideSlides[guideIndex];
+  const total = guideSlides.length;
+  document.getElementById('guide-current').textContent = guideIndex + 1;
+  document.getElementById('guide-total').textContent = total;
+  document.getElementById('guide-category').textContent = s.cat;
+  document.getElementById('guide-progress').style.width = ((guideIndex + 1) / total * 100) + '%';
+  document.getElementById('guide-prev').style.opacity = guideIndex === 0 ? '.3' : '1';
+  document.getElementById('guide-next').textContent = guideIndex === total - 1 ? '✓ Terminé' : 'Suivant →';
+  document.getElementById('guide-slide').innerHTML = `
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:1rem;">
+      <div style="font-size:2rem;">${s.emoji}</div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:1.4rem;color:${s.couleur};letter-spacing:.5px;">${s.titre}</div>
+    </div>${s.contenu}`;
+  document.getElementById('guide-dots').innerHTML = guideSlides.map((_,i) =>
+    `<div onclick="guideTo(${i})" style="width:${i===guideIndex?'20px':'8px'};height:8px;border-radius:4px;background:${i===guideIndex?'#29c8e6':'#333'};cursor:pointer;transition:all .3s;"></div>`
+  ).join('');
+}
+
+function guideNav(dir) {
+  const total = guideSlides.length;
+  if (dir === 1 && guideIndex === total - 1) { toggleGuide(); return; }
+  guideIndex = Math.max(0, Math.min(total - 1, guideIndex + dir));
+  renderGuide();
+}
+
+function guideTo(i) { guideIndex = i; renderGuide(); }
+
+renderCards(offres);
+</script>
+</body>
+</html>

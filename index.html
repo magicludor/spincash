@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Spincash — Transformez vos achats en gains</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --black:#111;
+  --red:#e63329;
+  --blue:#2196f3;
+  --green:#39e239;
+  --yellow:#f5e642;
+  --orange:#f58c1a;
+  --magenta:#e91e8c;
+  --cyan:#29c8e6;
+  --white:#f8f8f4;
+  --card:#1c1c1c;
+  --muted:#888;
+  --border:#2a2a2a;
+}
+html{scroll-behavior:smooth;}
+body{
+  font-family:'Nunito',sans-serif;
+  background:var(--black);
+  color:var(--white);
+  min-height:100vh;
+  overflow-x:hidden;
+}
+
+/* ── BANDEAU NEWS ── */
+.news-bar{
+  background:#000;
+  border-bottom:1px solid #222;
+  padding:.45rem 1rem;
+  display:flex;align-items:center;gap:10px;overflow:hidden;
+  position:sticky;top:0;z-index:100;
+}
+.news-label{
+  font-family:'Bebas Neue',sans-serif;font-size:13px;
+  letter-spacing:2px;color:var(--yellow);
+  white-space:nowrap;border-right:1px solid #333;
+  padding-right:10px;flex-shrink:0;
+}
+.news-ticker{overflow:hidden;flex:1;}
+.news-inner{
+  display:flex;gap:3rem;
+  animation:ticker 28s linear infinite;white-space:nowrap;
+}
+.news-inner:hover{animation-play-state:paused;}
+.news-item{font-size:12px;color:#bbb;font-weight:600;white-space:nowrap;}
+.news-item b{color:var(--orange);}
+@keyframes ticker{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* ── NAV ── */
+nav{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1rem 2rem;
+  position:sticky;top:36px;z-index:99;
+  background:rgba(17,17,17,.92);
+  backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--border);
+}
+.nav-logo{display:flex;align-items:center;gap:6px;}
+.tile{
+  width:26px;height:26px;border-radius:4px;
+  background:#1e1e1e;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Bebas Neue',sans-serif;font-size:17px;
+  border:1px solid #333;flex-shrink:0;
+}
+.nav-slogan{
+  font-size:15px;color:#d8d4cc;
+  font-weight:600;margin-left:8px;
+  display:none;
+}
+@media(min-width:500px){.nav-slogan{display:block;}}
+.nav-right{display:flex;align-items:center;gap:10px;}
+.btn-connect{
+  padding:9px 22px;border-radius:24px;
+  background:var(--yellow);color:var(--black);
+  border:none;font-family:'Nunito',sans-serif;
+  font-size:13px;font-weight:900;cursor:pointer;
+  transition:all .2s;letter-spacing:.3px;
+}
+.btn-connect:hover{background:#fff;transform:scale(1.04);}
+
+/* ── HERO ── */
+.hero{
+  min-height:auto;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  text-align:center;
+  padding:3rem 1.5rem 4rem;
+  position:relative;
+  overflow:hidden;
+}
+.hero-bg{
+  position:absolute;inset:0;
+  background:radial-gradient(ellipse 80% 60% at 50% 40%,#1e1e1e 0%,#111 100%);
+  z-index:0;
+}
+/* Grille de tuiles animées en fond */
+.tiles-bg{
+  position:absolute;inset:0;z-index:0;
+  display:grid;
+  grid-template-columns:repeat(10,1fr);
+  gap:6px;padding:6px;
+  opacity:.06;pointer-events:none;
+}
+.tiles-bg span{
+  border-radius:4px;background:#fff;
+  animation:pulse 4s ease-in-out infinite;
+  animation-delay:calc(var(--d)*0.15s);
+}
+@keyframes pulse{0%,100%{opacity:.3}50%{opacity:1}}
+
+.hero-content{position:relative;z-index:1;}
+
+.logo-tiles-big{
+  display:flex;gap:8px;justify-content:center;flex-wrap:wrap;
+  margin-bottom:1rem;
+}
+.tile-big{
+  width:46px;height:46px;border-radius:8px;
+  background:#1e1e1e;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Bebas Neue',sans-serif;font-size:30px;
+  border:2px solid #2a2a2a;
+  animation:tileIn .6s ease both;
+  animation-delay:calc(var(--i)*.08s);
+  transition:transform .2s;
+}
+.tile-big:hover{transform:scale(1.12) rotate(-3deg);}
+@keyframes tileIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+
+.hero-content{
+  position:relative;z-index:1;
+  max-width:800px;
+  width:100%;
+  text-align:center;
+}
+.logo-tiles-big{
+  display:flex;gap:8px;justify-content:center;flex-wrap:wrap;
+  margin-bottom:1rem;
+}
+.hero-tag{
+  display:inline-block;
+  padding:6px 20px;border-radius:20px;
+  background:#1c1c1c;border:1px solid #333;
+  font-size:15px;font-weight:700;color:#d8d4cc;
+  letter-spacing:.5px;text-transform:uppercase;
+  margin-bottom:1.5rem;
+  animation:fadeUp .6s .6s ease both;
+}
+.hero-cta{
+  display:flex;gap:12px;justify-content:center;flex-wrap:wrap;
+  animation:fadeUp .6s .9s ease both;
+}
+.hero-stats{
+  display:flex;gap:2rem;justify-content:center;flex-wrap:wrap;
+  margin-top:3rem;padding-top:2rem;
+  border-top:1px solid var(--border);
+  animation:fadeUp .6s 1s ease both;
+}
+.hero-stat{text-align:center;}
+.hero-title{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(4rem,12vw,9rem);
+  line-height:.95;letter-spacing:2px;
+  margin-bottom:2rem;
+  animation:fadeUp .6s .7s ease both;
+}
+.hero-title em{font-style:normal;}
+.hero-sub{
+  font-size:clamp(.95rem,2vw,1.15rem);
+  color:#d8d4cc;font-weight:600;
+  max-width:480px;
+  margin:0 auto 2.5rem;
+  line-height:1.7;
+  text-align:center;
+  animation:fadeUp .6s .8s ease both;
+}
+.btn-hero-primary{
+  padding:14px 36px;border-radius:28px;
+  background:var(--yellow);color:var(--black);
+  border:none;font-family:'Nunito',sans-serif;
+  font-size:16px;font-weight:900;cursor:pointer;
+  transition:all .2s;
+}
+.btn-hero-primary:hover{background:#fff;transform:translateY(-2px);}
+.btn-hero-secondary{
+  padding:14px 36px;border-radius:28px;
+  background:#ffffff;color:var(--black);
+  border:2px solid #ffffff;font-family:'Nunito',sans-serif;
+  font-size:16px;font-weight:800;cursor:pointer;
+  transition:all .2s;
+}
+.btn-hero-secondary:hover{background:#e0e0d8;border-color:#e0e0d8;transform:translateY(-2px);}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+
+.hero-stat-val{
+  font-family:'Bebas Neue',sans-serif;font-size:2.8rem;
+  line-height:1;
+}
+.hero-stat-label{font-size:17px;color:#d8d4cc;font-weight:700;margin-top:8px;}
+
+/* ── SECTIONS ── */
+section{padding:5rem 2rem;}
+.section-inner{max-width:1100px;margin:0 auto;}
+.section-eyebrow{
+  font-size:13px;font-weight:800;letter-spacing:3px;
+  text-transform:uppercase;color:var(--yellow);
+  margin-bottom:.85rem;display:block;
+}
+.section-heading{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(2.8rem,5vw,4.5rem);
+  line-height:1.0;letter-spacing:1px;
+  margin-bottom:1rem;
+}
+.section-sub{
+  font-size:17px;color:#d8d4cc;font-weight:600;
+  max-width:100%;line-height:1.7;margin-bottom:2.5rem;
+}
+
+/* ── COMMENT ÇA MARCHE ── */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;}
+.step{
+  background:var(--card);border:1px solid #333;
+  border-radius:16px;padding:1.75rem;
+  position:relative;overflow:hidden;
+  transition:border-color .2s,transform .2s;
+}
+.step:hover{border-color:#555;transform:translateY(-3px);}
+.step:nth-child(1){border-top:3px solid #e63329;}
+.step:nth-child(2){border-top:3px solid #2196f3;}
+.step:nth-child(3){border-top:3px solid #f58c1a;}
+.step:nth-child(4){border-top:3px solid #39e239;}
+.step-num{
+  font-family:'Bebas Neue',sans-serif;font-size:5rem;
+  line-height:1;color:#242424;
+  position:absolute;top:.5rem;right:1rem;
+  pointer-events:none;
+}
+.step-icon{font-size:2.2rem;margin-bottom:.85rem;}
+.step-title{font-size:17px;font-weight:800;margin-bottom:.6rem;color:var(--white);}
+.step-desc{font-size:15px;color:#c8c4bc;line-height:1.6;text-align:left;}
+
+/* ── AVANTAGES ── */
+.avantages{background:#0d0d0d;border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
+.avantages-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.25rem;}
+.avantage{
+  display:flex;gap:14px;align-items:flex-start;
+  padding:1.25rem;border-radius:12px;
+  background:var(--card);border:1px solid #333;
+  transition:border-color .2s;
+}
+.avantage:hover{border-color:#555;}
+.av-icon{
+  width:48px;height:48px;border-radius:12px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.5rem;flex-shrink:0;
+}
+.av-title{font-size:16px;font-weight:800;margin-bottom:6px;color:var(--white);}
+.av-desc{font-size:15px;color:#c8c4bc;line-height:1.5;}
+
+/* ── BLOC WIN-WIN ── */
+.winwin{
+  background:var(--black);
+  border-top:1px solid #1a1a1a;
+}
+.winwin-box{
+  background:var(--card);border:1px solid #333;
+  border-radius:20px;padding:2.5rem;
+  width:100%;
+  position:relative;overflow:hidden;
+}
+.winwin-box::before{
+  content:'WIN WIN';
+  position:absolute;
+  font-family:'Bebas Neue',sans-serif;
+  font-size:7rem;color:#2a2a2a;
+  top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  white-space:nowrap;pointer-events:none;
+  letter-spacing:8px;
+}
+.winwin-tiles{display:flex;gap:6px;justify-content:flex-start;margin-bottom:1.25rem;}
+.winwin-arrow{font-size:2rem;color:var(--yellow);margin:0 .5rem;line-height:1;}
+.winwin-text{
+  font-size:17px;color:#d8d4cc;line-height:1.65;
+  max-width:100%;margin:0 0 1.75rem;
+  position:relative;z-index:1;
+  text-align:left;
+}
+.winwin-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:10px 24px;border-radius:24px;
+  background:#111;border:1px solid var(--yellow);
+  font-size:15px;font-weight:800;color:var(--yellow);
+}
+
+/* ── FAQ ── */
+.faq-list{display:flex;flex-direction:column;gap:0;}
+.faq-item{
+  background:var(--card);
+  border:1px solid #333;
+  border-bottom:none;
+  overflow:hidden;
+  transition:border-color .2s;
+}
+.faq-item:first-child{border-radius:12px 12px 0 0;}
+.faq-item:last-child{border-radius:0 0 12px 12px;border-bottom:1px solid #333;}
+.faq-item:hover{background:#222;}
+.faq-item:nth-child(1){border-left:3px solid #e63329;}
+.faq-item:nth-child(2){border-left:3px solid #2196f3;}
+.faq-item:nth-child(3){border-left:3px solid #f58c1a;}
+.faq-item:nth-child(4){border-left:3px solid #e91e8c;}
+.faq-item:nth-child(5){border-left:3px solid #39e239;}
+.faq-q{
+  padding:1rem 1.25rem;font-size:16px;font-weight:800;
+  cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:1rem;
+  user-select:none;color:var(--white);
+}
+.faq-arrow{font-size:18px;color:var(--yellow);transition:transform .3s;flex-shrink:0;}
+.faq-item.open .faq-arrow{transform:rotate(45deg);}
+.faq-a{
+  max-height:0;overflow:hidden;transition:max-height .35s ease,padding .3s;
+  font-size:15px;color:#c8c4bc;line-height:1.7;padding:0 1.25rem;
+}
+.faq-item.open .faq-a{max-height:200px;padding:0 1.25rem 1rem;}
+
+/* ── CTA FINAL ── */
+.cta-final{
+  text-align:center;padding:4rem 1.5rem;
+  background:linear-gradient(180deg,#111 0%,#0a0a0a 100%);
+  border-top:1px solid var(--border);
+}
+.cta-final .section-heading{
+  font-size:clamp(2.5rem,5vw,4rem);
+  margin-bottom:.75rem;
+}
+.cta-final .section-sub{margin:0 auto 2rem;max-width:480px;}
+
+/* ── FOOTER ── */
+footer{
+  background:#000;border-top:1px solid #1a1a1a;
+  padding:1.5rem 2rem;
+  display:flex;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;gap:1rem;
+}
+.footer-left{font-size:13px;color:#888;}
+.footer-links{display:flex;gap:1.5rem;}
+.footer-links a{font-size:13px;color:#888;text-decoration:none;transition:color .2s;}
+.footer-links a:hover{color:#d8d4cc;}
+
+/* ── MODAL LOGIN ── */
+.modal-overlay{
+  position:fixed;inset:0;z-index:999;
+  background:rgba(0,0,0,.85);backdrop-filter:blur(6px);
+  display:none;align-items:center;justify-content:center;
+  padding:1rem;
+}
+.modal-overlay.open{display:flex;}
+.modal{
+  background:#161616;border:1px solid #2a2a2a;
+  border-radius:20px;padding:2rem;width:100%;max-width:400px;
+  position:relative;
+  animation:modalIn .3s ease both;
+}
+@keyframes modalIn{from{opacity:0;transform:scale(.94)}to{opacity:1;transform:scale(1)}}
+.modal-close{
+  position:absolute;top:1rem;right:1rem;
+  background:none;border:none;color:#666;
+  font-size:22px;cursor:pointer;line-height:1;
+  transition:color .2s;
+}
+.modal-close:hover{color:#fff;}
+.modal-logo{display:flex;gap:4px;justify-content:center;margin-bottom:1rem;}
+.modal-title{
+  font-family:'Bebas Neue',sans-serif;font-size:1.8rem;
+  letter-spacing:1px;text-align:center;margin-bottom:.25rem;
+}
+.modal-sub{font-size:13px;color:#888;text-align:center;margin-bottom:1.75rem;}
+
+/* Choix profil */
+.profil-choice{display:flex;gap:10px;margin-bottom:1.5rem;}
+.profil-btn{
+  flex:1;padding:1rem;border-radius:12px;
+  border:2px solid #2a2a2a;background:#1c1c1c;
+  color:#aaa;cursor:pointer;text-align:center;
+  transition:all .2s;font-family:'Nunito',sans-serif;
+}
+.profil-btn:hover{border-color:#444;color:#fff;}
+.profil-btn.selected{border-color:var(--yellow);background:#1e1c00;color:var(--yellow);}
+.profil-icon{font-size:1.75rem;margin-bottom:.4rem;}
+.profil-label{font-size:13px;font-weight:800;}
+.profil-desc{font-size:11px;color:#666;margin-top:2px;}
+.profil-btn.selected .profil-desc{color:#a09000;}
+
+/* Form */
+.form-group{margin-bottom:1rem;}
+.form-group label{font-size:11px;font-weight:800;color:#888;text-transform:uppercase;letter-spacing:.5px;display:block;margin-bottom:5px;}
+.form-input{
+  width:100%;padding:10px 14px;
+  border:1.5px solid #2a2a2a;border-radius:10px;
+  background:#111;color:#fff;
+  font-family:'Nunito',sans-serif;font-size:14px;
+  transition:border-color .2s;
+}
+.form-input:focus{outline:none;border-color:var(--yellow);}
+.form-input::placeholder{color:#444;}
+.btn-login{
+  width:100%;padding:12px;border-radius:12px;
+  background:var(--yellow);color:var(--black);
+  border:none;font-family:'Nunito',sans-serif;
+  font-size:15px;font-weight:900;cursor:pointer;
+  transition:all .2s;margin-top:.5rem;
+}
+.btn-login:hover{background:#fff;}
+.login-note{font-size:11px;color:#555;text-align:center;margin-top:1rem;line-height:1.5;}
+.error-msg{
+  font-size:12px;color:#e63329;font-weight:700;
+  text-align:center;margin-top:.5rem;display:none;
+}
+
+@media(max-width:900px){
+  .steps{grid-template-columns:repeat(2,1fr);}
+  .winwin-grid{grid-template-columns:1fr;}
+}
+@media(max-width:700px){
+  nav{padding:.75rem 1rem;top:32px;}
+  .nav-slogan{display:none;}
+  .tile-big{width:38px;height:38px;font-size:24px;border-radius:6px;}
+  .logo-tiles-big{gap:5px;}
+  .hero{padding:2.5rem 1rem 2rem;min-height:auto;}
+  .hero-title{font-size:clamp(3.2rem,18vw,5rem);line-height:.92;}
+  .hero-sub{font-size:.95rem;}
+  .hero-cta{flex-direction:column;align-items:center;}
+  .btn-hero-primary,.btn-hero-secondary{width:100%;max-width:320px;}
+  .hero-stats{gap:1.5rem;justify-content:space-around;}
+  .hero-stat-val{font-size:2rem;}
+  .hero-stat-label{font-size:14px;}
+  section{padding:3rem 1rem;}
+  .steps{grid-template-columns:1fr;}
+  .steps{grid-template-columns:1fr;}
+  .avantages-grid{grid-template-columns:1fr;}
+  .winwin .section-inner > div{grid-template-columns:1fr !important;gap:2rem !important;}
+  .winwin-box{padding:2rem 1.25rem;}
+  .winwin-box::before{font-size:5rem;}
+  footer{flex-direction:column;align-items:flex-start;gap:.75rem;}
+  .modal{padding:1.5rem 1.25rem;}
+  .profil-choice{flex-direction:column;}
+}
+@media(max-width:400px){
+  .tile-big{width:32px;height:32px;font-size:20px;border-radius:5px;}
+  .hero-title{font-size:clamp(2.8rem,16vw,4rem);}
+  .hero-tag{font-size:12px;padding:4px 14px;}
+}
+</style>
+</head>
+<body>
+
+<!-- BANDEAU NEWS -->
+<div class="news-bar">
+  <div class="news-label">📢 NEWS</div>
+  <div class="news-ticker">
+    <div class="news-inner">
+      <span class="news-item"><b>📅</b> Prochain webinaire Spincash : 15 avril 2025 — Inscrivez-vous !</span>
+      <span class="news-item"><b>🎰</b> Tombola du mois en cours — Bonne chance à tous les membres qualifiés !</span>
+      <span class="news-item"><b>🛍️</b> Ebuyclub : 8% cashback sur Cdiscount cette semaine</span>
+      <span class="news-item"><b>👥</b> Bienvenue aux 3 nouveaux membres Spincash ce mois !</span>
+      <span class="news-item"><b>📅</b> Prochain webinaire Spincash : 15 avril 2025 — Inscrivez-vous !</span>
+      <span class="news-item"><b>🎰</b> Tombola du mois en cours — Bonne chance à tous les membres qualifiés !</span>
+      <span class="news-item"><b>🛍️</b> Ebuyclub : 8% cashback sur Cdiscount cette semaine</span>
+      <span class="news-item"><b>👥</b> Bienvenue aux 3 nouveaux membres Spincash ce mois !</span>
+    </div>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <div style="display:flex;gap:3px;">
+      <div class="tile" style="color:#e63329">S</div>
+      <div class="tile" style="color:#2196f3">P</div>
+      <div class="tile" style="color:#39e239">I</div>
+      <div class="tile" style="color:#f5e642">N</div>
+    </div>
+    <div style="display:flex;gap:3px;margin-left:3px;">
+      <div class="tile" style="color:#f58c1a">C</div>
+      <div class="tile" style="color:#e91e8c">A</div>
+      <div class="tile" style="color:#29c8e6">S</div>
+      <div class="tile" style="color:#39e239">H</div>
+    </div>
+    <span class="nav-slogan">Transformez vos achats en gains</span>
+  </div>
+  <div class="nav-right">
+    <a href="spincash-offres.html" style="font-size:12px;font-weight:700;color:#aaa;text-decoration:none;padding:6px 14px;border-radius:20px;border:1.5px solid #333;transition:all .2s;" onmouseover="this.style.color='#fff';this.style.borderColor='#666'" onmouseout="this.style.color='#aaa';this.style.borderColor='#333'">🛍️ Offres du jour</a>
+    <button class="btn-connect" onclick="openModal()">Se connecter →</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="tiles-bg" id="tiles-bg"></div>
+  <div class="hero-content">
+    <div class="logo-tiles-big">
+      <div class="tile-big" style="color:#e63329;--i:0">S</div>
+      <div class="tile-big" style="color:#2196f3;--i:1">P</div>
+      <div class="tile-big" style="color:#39e239;--i:2">I</div>
+      <div class="tile-big" style="color:#f5e642;--i:3">N</div>
+      <div class="tile-big" style="color:#f58c1a;--i:4">C</div>
+      <div class="tile-big" style="color:#e91e8c;--i:5">A</div>
+      <div class="tile-big" style="color:#29c8e6;--i:6">S</div>
+      <div class="tile-big" style="color:#39e239;--i:7">H</div>
+    </div>
+    <div class="hero-tag">✦ La communauté cashback qui vous fait gagner plus ✦</div>
+    <h1 class="hero-title">
+      Transformez<br>
+      vos achats<br>
+      <em style="color:var(--yellow)">en gains</em>
+    </h1>
+    <p class="hero-sub">Chaque achat du quotidien est une opportunité.<br>Spincash vous aide à la saisir et à la partager.</p>
+    <div class="hero-cta">
+      <button class="btn-hero-primary" onclick="openModal()">Rejoindre Spincash →</button>
+      <button class="btn-hero-secondary" onclick="document.getElementById('comment').scrollIntoView({behavior:'smooth'})">Comment ça marche ?</button>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="hero-stat-val" style="color:var(--green)">100%</div>
+        <div class="hero-stat-label">Cashback · Zéro flux financier</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-val" style="color:var(--yellow)">Gratuit</div>
+        <div class="hero-stat-label">Accès libre pour tous</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-val" style="color:var(--magenta)">Win-Win</div>
+        <div class="hero-stat-label">Membres & tuteurs gagnent</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMMENT ÇA MARCHE -->
+<section id="comment" style="background:#0d0d0d;border-top:1px solid #1a1a1a;">
+  <div class="section-inner">
+    <div class="section-eyebrow">Comment ça marche ?</div>
+    <h2 class="section-heading">Simple, transparent,<br><span style="color:var(--yellow)">automatique</span></h2>
+    <p class="section-sub">En 4 étapes simples, votre cashback Ebuyclub travaille pour vous et pour toute la communauté.</p>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-icon">🛍️</div>
+        <div class="step-title" style="color:#e63329;">Faites vos achats</div>
+        <div class="step-desc">Achetez en ligne comme d'habitude via Ebuyclub et accumulez du cashback sur toutes vos dépenses du quotidien. Chaque achat vous rapproche de votre objectif.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-icon">🗓️</div>
+        <div class="step-title" style="color:#2196f3;">Déclarez votre cagnotte</div>
+        <div class="step-desc">Entre le 1er et le 5 de chaque mois, saisissez le montant de votre cagnotte Ebuyclub dans votre espace personnel Spincash. Simple et rapide.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-icon">🎁</div>
+        <div class="step-title" style="color:#f58c1a;">Partagez en Ebuycards</div>
+        <div class="step-desc">Dès 20 € de cagnotte, envoyez une Ebuycard de 5 € à chacun de vos deux tuteurs. Le reliquat se reporte automatiquement au mois suivant.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-icon">🎰</div>
+        <div class="step-title" style="color:#39e239;">Profitez des avantages</div>
+        <div class="step-desc">Participez à la tombola mensuelle, accumulez des points et recevez des filleuls offerts lors des webinaires Spincash. La communauté vous récompense.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AVANTAGES -->
+<section class="avantages">
+  <div class="section-inner">
+    <div class="section-eyebrow">Pourquoi Spincash ?</div>
+    <h2 class="section-heading">Tout le monde<br><span style="color:var(--cyan)">y gagne</span></h2>
+    <p class="section-sub">6 bonnes raisons de rejoindre la communauté Spincash dès aujourd'hui.</p>
+    <div class="avantages-grid">
+      <div class="avantage" style="border-top:3px solid #f5e642;">
+        <div class="av-icon" style="background:#1a1a00;">💛</div>
+        <div>
+          <div class="av-title" style="color:#f5e642;">100% gratuit</div>
+          <div class="av-desc">Aucun abonnement, aucune cotisation. Spincash est entièrement gratuit pour tous ses membres.</div>
+        </div>
+      </div>
+      <div class="avantage" style="border-top:3px solid #39e239;">
+        <div class="av-icon" style="background:#001a00;">💚</div>
+        <div>
+          <div class="av-title" style="color:#39e239;">100% cashback</div>
+          <div class="av-desc">Aucun flux financier. Tout se passe en Ebuycards — conforme à la législation, zéro complexité.</div>
+        </div>
+      </div>
+      <div class="avantage" style="border-top:3px solid #e91e8c;">
+        <div class="av-icon" style="background:#1a001a;">💜</div>
+        <div>
+          <div class="av-title" style="color:#e91e8c;">Tombola mensuelle</div>
+          <div class="av-desc">Chaque mois qualifié vous donne accès à un tirage au sort avec des bons d'achat à gagner.</div>
+        </div>
+      </div>
+      <div class="avantage" style="border-top:3px solid #2196f3;">
+        <div class="av-icon" style="background:#001a1a;">💙</div>
+        <div>
+          <div class="av-title" style="color:#2196f3;">Challenge filleuls</div>
+          <div class="av-desc">Accumulez des points chaque mois qualifié et recevez des filleuls offerts lors des webinaires Spincash.</div>
+        </div>
+      </div>
+      <div class="avantage" style="border-top:3px solid #f58c1a;">
+        <div class="av-icon" style="background:#1a0a00;">🧡</div>
+        <div>
+          <div class="av-title" style="color:#f58c1a;">Accompagnement</div>
+          <div class="av-desc">Deux tuteurs vous guident dès le départ et créent une entraide naturelle et bienveillante.</div>
+        </div>
+      </div>
+      <div class="avantage" style="border-top:3px solid #e63329;">
+        <div class="av-icon" style="background:#1a0000;">❤️</div>
+        <div>
+          <div class="av-title" style="color:#e63329;">Communauté bienveillante</div>
+          <div class="av-desc">Webinaires mensuels, news en temps réel, outils de suivi — tout est pensé pour avancer ensemble.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WIN-WIN -->
+<section class="winwin" style="padding:3rem 2rem;">
+  <div class="section-inner">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;align-items:center;">
+      <div>
+        <div class="section-eyebrow">Le concept</div>
+        <h2 class="section-heading" style="margin-bottom:1.5rem;">Le principe<br><span style="color:var(--yellow)">Win-Win</span></h2>
+        <p style="font-size:17px;color:#d8d4cc;line-height:1.7;margin-bottom:1.5rem;">Un système basé sur la réciprocité — chacun donne et reçoit. Membre, tuteur, communauté : tout le monde avance ensemble.</p>
+        <div class="winwin-badge">🤝 Membre gagne · Tuteur gagne · Communauté grandit</div>
+      </div>
+      <div class="winwin-box">
+        <div class="winwin-tiles" style="position:relative;z-index:1;">
+          <div class="tile" style="color:#e91e8c;width:40px;height:40px;font-size:26px;">M</div>
+          <div class="winwin-arrow">⇄</div>
+          <div class="tile" style="color:#2196f3;width:40px;height:40px;font-size:26px;">T</div>
+        </div>
+        <p class="winwin-text">
+          Chaque membre verse une Ebuycard de 5 € à chacun de ses tuteurs dès que sa cagnotte atteint 20 €. En échange, ses tuteurs l'accompagnent, le conseillent et l'aident à progresser. Les tuteurs sont eux-mêmes membres et reversent à leurs propres tuteurs. La chaîne de valeur profite à tout le monde.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section style="background:#0d0d0d;border-top:1px solid #1a1a1a;">
+  <div class="section-inner">
+    <div class="section-eyebrow">Questions fréquentes</div>
+    <h2 class="section-heading" style="margin-bottom:1rem;">Tout ce que vous<br><span style="color:var(--orange)">voulez savoir</span></h2>
+    <p class="section-sub" style="margin-bottom:2rem;">Les réponses aux questions que vous vous posez avant de rejoindre Spincash.</p>
+    <div class="faq-list">
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">C'est vraiment gratuit ? <span class="faq-arrow">+</span></div>
+        <div class="faq-a">Oui, totalement. Spincash ne prend aucune commission, aucun abonnement. Le système fonctionne uniquement par le cashback que vous générez via vos achats sur Ebuyclub.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Qu'est-ce qu'une Ebuycard ? <span class="faq-arrow">+</span></div>
+        <div class="faq-a">L'eBuyCard est un moyen de paiement multi-enseignes disponible dans votre wallet Ebuyclub. Dans Spincash, le membre vire sa cagnotte sur son wallet Ebuycard personnel, puis achète 2 Ebuycards de 5 € par carte bleue qu'il envoie en cadeau à chaque tuteur via la fonction "offrir" d'Ebuyclub. L'Ebuycard vient s'ajouter au wallet du tuteur, qui peut l'utiliser pour acheter des bons d'achat dans le catalogue Ebuyclub (Fnac, Amazon, Cdiscount...). Elle génère également 0,5% de cashback instantané.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Que se passe-t-il si ma cagnotte ne dépasse pas 20 € ? <span class="faq-arrow">+</span></div>
+        <div class="faq-a">Pas de problème ! Votre cagnotte s'accumule d'un mois sur l'autre. Le reliquat est reporté automatiquement jusqu'à atteindre le bloc de 20 € suivant.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Comment fonctionne la tombola ? <span class="faq-arrow">+</span></div>
+        <div class="faq-a">Chaque mois, 20% de la cagnotte de l'admin est redistribuée en bons d'achat de 10 €. Le tirage se fait parmi les membres qualifiés (cagnotte ≥ 20 € + redistribution effectuée).</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Comment rejoindre Spincash ? <span class="faq-arrow">+</span></div>
+        <div class="faq-a">Spincash fonctionne par invitation. Un membre existant vous parraine via son lien Ebuyclub et vous intègre à la communauté. Vous pouvez aussi assister à un webinaire mensuel pour découvrir le système.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<div class="cta-final">
+  <div class="section-eyebrow">Prêt à commencer ?</div>
+  <h2 class="section-heading">Rejoignez la communauté<br><span style="color:var(--yellow)">Spincash</span></h2>
+  <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:2rem;">
+    <button class="btn-hero-primary" style="padding:12px 32px;font-size:15px;" onclick="openModal()">Rejoindre Spincash →</button>
+    <button class="btn-hero-secondary" style="padding:12px 32px;font-size:15px;" onclick="openModal()">Se connecter</button>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-left">© 2026 Spincash · Tous droits réservés</div>
+  <div class="footer-links">
+    <a href="#">CGU</a>
+    <a href="#">Mentions légales</a>
+    <a href="#">Contact</a>
+  </div>
+</footer>
+
+<!-- MODAL LOGIN -->
+<div class="modal-overlay" id="modal-overlay" onclick="closeModalOutside(event)">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">×</button>
+    <div class="modal-logo">
+      <div style="display:flex;gap:3px;">
+        <div class="tile" style="color:#e63329;width:22px;height:22px;font-size:14px;">S</div>
+        <div class="tile" style="color:#2196f3;width:22px;height:22px;font-size:14px;">P</div>
+        <div class="tile" style="color:#39e239;width:22px;height:22px;font-size:14px;">I</div>
+        <div class="tile" style="color:#f5e642;width:22px;height:22px;font-size:14px;">N</div>
+      </div>
+      <div style="display:flex;gap:3px;margin-left:3px;">
+        <div class="tile" style="color:#f58c1a;width:22px;height:22px;font-size:14px;">C</div>
+        <div class="tile" style="color:#e91e8c;width:22px;height:22px;font-size:14px;">A</div>
+        <div class="tile" style="color:#29c8e6;width:22px;height:22px;font-size:14px;">S</div>
+        <div class="tile" style="color:#39e239;width:22px;height:22px;font-size:14px;">H</div>
+      </div>
+    </div>
+    <div class="modal-title">Connexion</div>
+    <div class="modal-sub">Choisissez votre profil pour accéder à votre espace</div>
+
+    <div class="profil-choice">
+      <div class="profil-btn selected" id="profil-membre" onclick="selectProfil('membre')">
+        <div class="profil-icon">👤</div>
+        <div class="profil-label">Membre</div>
+        <div class="profil-desc">Espace personnel</div>
+      </div>
+      <div class="profil-btn" id="profil-admin" onclick="selectProfil('admin')">
+        <div class="profil-icon">🛠️</div>
+        <div class="profil-label">Admin</div>
+        <div class="profil-desc">Gestion communauté</div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Identifiant</label>
+      <input type="text" class="form-input" id="login-id" placeholder="Votre identifiant Spincash" />
+    </div>
+    <div class="form-group">
+      <label>Mot de passe</label>
+      <input type="password" class="form-input" id="login-pw" placeholder="••••••••" onkeydown="if(event.key==='Enter')connexion()" />
+    </div>
+    <div class="error-msg" id="error-msg">Identifiant ou mot de passe incorrect.</div>
+    <button class="btn-login" onclick="connexion()">Accéder à mon espace →</button>
+    <div class="login-note">Pas encore membre ? Participez à un webinaire ou demandez une invitation à un membre Spincash.</div>
+  </div>
+</div>
+
+<script>
+// Génération des tuiles de fond animées
+const bg = document.getElementById('tiles-bg');
+for(let i=0;i<80;i++){
+  const s = document.createElement('span');
+  s.style.setProperty('--d', i);
+  bg.appendChild(s);
+}
+
+// Profil sélectionné
+let profilActif = 'membre';
+function selectProfil(p) {
+  profilActif = p;
+  document.getElementById('profil-membre').classList.toggle('selected', p==='membre');
+  document.getElementById('profil-admin').classList.toggle('selected', p==='admin');
+  document.getElementById('error-msg').style.display = 'none';
+}
+
+// Modal
+function openModal() {
+  document.getElementById('modal-overlay').classList.add('open');
+  document.getElementById('login-id').focus();
+}
+function closeModal() {
+  document.getElementById('modal-overlay').classList.remove('open');
+  document.getElementById('error-msg').style.display = 'none';
+}
+function closeModalOutside(e) {
+  if(e.target === document.getElementById('modal-overlay')) closeModal();
+}
+document.addEventListener('keydown', e => { if(e.key==='Escape') closeModal(); });
+
+// Connexion (prototype — mots de passe simulés)
+function connexion() {
+  const id = document.getElementById('login-id').value.trim();
+  const pw = document.getElementById('login-pw').value;
+  const err = document.getElementById('error-msg');
+  err.style.display = 'none';
+
+  // Identifiants de démonstration
+  const comptes = {
+    membre: { id:'membre', pw:'spincash2025' },
+    admin:  { id:'admin',  pw:'admin2025'    },
+  };
+
+  const compte = comptes[profilActif];
+  if(id === compte.id && pw === compte.pw) {
+    // Redirection vers le dashboard avec profil en paramètre
+    window.location.href = 'spincash-dashboard.html?profil=' + profilActif;
+  } else {
+    err.style.display = 'block';
+    document.getElementById('login-pw').value = '';
+    document.getElementById('login-pw').focus();
+  }
+}
+
+// FAQ accordion
+function toggleFaq(el) {
+  const item = el.parentElement;
+  const wasOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(f => f.classList.remove('open'));
+  if(!wasOpen) item.classList.add('open');
+}
+</script>
+</body>
+</html>
