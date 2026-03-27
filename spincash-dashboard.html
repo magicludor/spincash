@@ -449,10 +449,16 @@ tr.equalite-row td { background:#fffbe6 !important; }
 /* RESPONSIVE */
 @media (max-width:700px) {
   body { padding:.75rem .75rem 3rem; }
-  .header { flex-wrap:wrap; gap:.5rem; padding:.75rem .9rem; border-radius:12px; }
-  .logo-area { flex:1; min-width:0; }
+  /* Header : logo ligne 1, nav ligne 2 */
+  .header { flex-direction:column; align-items:stretch; gap:.5rem; padding:.75rem .9rem; border-radius:12px; }
+  .logo-area { display:flex; align-items:center; justify-content:space-between; }
   .slogan { display:none; }
-  .tile { width:23px; height:23px; font-size:15px; }
+  .tile { width:22px; height:22px; font-size:14px; }
+  /* Nav droite : sur la même ligne que le logo, compacte */
+  .header > div:last-child { display:flex; gap:6px; align-items:center; flex-wrap:nowrap; overflow-x:auto; }
+  #btn-switch-view { font-size:10px !important; padding:4px 10px !important; white-space:nowrap; }
+  #profil-badge { font-size:10px !important; padding:4px 10px !important; white-space:nowrap; }
+  .header a { font-size:10px !important; padding:4px 10px !important; white-space:nowrap; }
   .nav-tabs { width:100%; }
   .tab-btn { flex:1; text-align:center; padding:7px 4px; font-size:11px; }
   .admin-stats { grid-template-columns:repeat(2,1fr); }
@@ -468,17 +474,12 @@ tr.equalite-row td { background:#fffbe6 !important; }
   .tirage-config { flex-direction:column; }
   .affiliate-form { flex-direction:column; }
   .news-banner { border-radius:8px; padding:.5rem .9rem; }
-  /* nav droite : boutons plus compacts */
-  #btn-switch-view { font-size:10px !important; padding:4px 8px !important; }
-  #profil-badge { font-size:10px !important; padding:4px 8px !important; }
 }
 @media (max-width:420px) {
   .stat-value { font-size:16px; }
   .stat-label { font-size:9px; }
   .member-name { font-size:15px; }
-  .tile { width:20px; height:20px; font-size:13px; }
-  /* Cacher "← Accueil" sur très petit écran, garder seulement Offres + switch */
-  .header a[href="spincash-accueil.html"] { display:none; }
+  .tile { width:19px; height:19px; font-size:12px; }
 }
 </style>
 </head>
