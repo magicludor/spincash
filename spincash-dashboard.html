@@ -454,15 +454,15 @@ tr.equalite-row td { background:#fffbe6 !important; }
   .tile { width:20px; height:20px; font-size:12px; }
   .logo-tiles { gap:2px; }
   .logo-area { gap:2px; }
-  /* Boutons nav compacts — icône + texte court */
+  /* Boutons nav compacts */
   .nav-btn-dash { font-size:10px !important; padding:4px 7px !important; }
-  #profil-badge { font-size:10px !important; padding:4px 7px !important; }
-  #btn-switch-view { font-size:10px !important; padding:4px 7px !important; }
-  /* Cacher "← Accueil" */
+  /* Cacher "← Accueil" et badge profil */
   a.nav-btn-dash[href="spincash-accueil.html"] { display:none; }
-  /* Cacher texte du switch, garder icône */
-  .btn-switch-label { font-size:0; }
-  .btn-switch-label::first-letter { font-size:14px; }
+  #profil-badge { display:none !important; }
+  /* Bouton switch : icône seule, taille fixe */
+  #btn-switch-view { padding:6px 10px !important; font-size:16px !important; border-radius:50% !important; min-width:36px; }
+  .btn-switch-label { font-size:0 !important; }
+  .btn-switch-label::first-letter { font-size:16px !important; }
   .nav-tabs { width:100%; }
   .tab-btn { flex:1; text-align:center; padding:7px 4px; font-size:11px; }
   .admin-stats { grid-template-columns:repeat(2,1fr); }

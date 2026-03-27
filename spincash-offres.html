@@ -213,14 +213,15 @@ body.light .search-wrap input { background:#fff; border-color:#ccc; color:#1a1a1
   .search-wrap{margin-left:0;width:100%;}
   .search-wrap input{width:100%;}
   .offers-grid{grid-template-columns:1fr;}
-  /* Header : logo ligne 1, nav ligne 2 */
+  /* Header mobile : logo + nav sur 2 lignes */
   .header{padding:10px 1rem;gap:6px;flex-direction:column;align-items:stretch;}
   .logo-tiles{justify-content:flex-start;}
   .tile{width:22px;height:22px;font-size:14px;}
   .slogan{display:none;}
-  .header-nav{gap:6px;overflow-x:auto;flex-wrap:nowrap;}
+  .header-nav{gap:6px;flex-wrap:nowrap;align-items:center;}
   .btn-nav{padding:5px 10px;font-size:11px;white-space:nowrap;flex-shrink:0;}
-  /* Guide : empêcher badge+chevron de se coller */
+  /* Cacher toggle jour/nuit sur mobile — thème sombre forcé */
+  #toggle-offres, #theme-icon-offres, #toggle-offres + span { display:none !important; }
   #guide-offres .logo-area-guide{flex:1;min-width:0;}
 }
 @media(max-width:420px){
