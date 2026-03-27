@@ -490,6 +490,7 @@ tr.equalite-row td { background:#fffbe6 !important; }
 </head>
 <body>
 <div class="app">
+<div id="card-tooltip" style="display:none;position:fixed;z-index:9999;background:#1a1a2e;border:1.5px solid #29c8e6;border-radius:10px;padding:10px 14px;font-size:12px;color:#ddd;line-height:1.6;width:260px;box-shadow:0 4px 20px rgba(0,0,0,.6);font-family:'Nunito',sans-serif;font-weight:600;pointer-events:none;text-transform:none;letter-spacing:normal;"></div>
 
   <!-- BANDEAU NEWS -->
   <div class="news-banner">
@@ -546,7 +547,7 @@ tr.equalite-row td { background:#fffbe6 !important; }
             <div class="guide-subtitle" style="font-size:10px;color:var(--text-muted);white-space:nowrap;">8 étapes pour maîtriser l'outil</div>
           </div>
           <span id="guide-badge-nouveau" style="background:var(--spin-cyan);color:#000;font-size:10px;font-weight:800;padding:2px 8px;border-radius:10px;margin-left:4px;">NOUVEAU</span>
-          <span class="tutor-bubble" style="margin-left:4px;">?<div class="tutor-bubble-popup down align-left">👋 Commencez ici ! Ce guide vous accompagne en 8 étapes pour maîtriser le cashback Ebuyclub et Spincash. Parcourez-le à votre rythme !</div></span>
+          <span class="card-tip-btn" style="display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;background:var(--spin-cyan);color:#000;border-radius:50%;font-size:11px;font-weight:800;cursor:pointer;flex-shrink:0;margin-left:4px;" data-tip="👋 Commencez ici ! Ce guide vous accompagne en 8 étapes pour maîtriser le cashback Ebuyclub et Spincash. Parcourez-le à votre rythme !" onmouseenter="showCardTip(event,this)" onmouseleave="hideCardTip()" ontouchstart="showCardTip(event,this)">?</span>
         </div>
         <span id="guide-chevron" style="font-size:18px;color:var(--spin-cyan);transition:transform .3s;flex-shrink:0;margin-left:8px;">▼</span>
       </div>
@@ -579,7 +580,7 @@ tr.equalite-row td { background:#fffbe6 !important; }
       <div class="window-tag" style="margin-bottom:0;">
         <span class="window-dot"></span>
         Fenêtre de saisie ouverte — du 1er au 5 du mois
-        <span class="tutor-bubble" style="margin-left:6px;">?<div class="tutor-bubble-popup down align-left">📅 Vous avez du 1er au 5 de chaque mois pour déclarer votre cagnotte. En dehors de cette fenêtre, la saisie est fermée. Si vous la ratez, votre cagnotte du mois n'est pas comptabilisée.</div></span>
+        <span class="card-tip-btn" style="display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;background:var(--spin-cyan);color:#000;border-radius:50%;font-size:11px;font-weight:800;cursor:pointer;flex-shrink:0;vertical-align:middle;" data-tip="📅 Vous avez du 1er au 5 de chaque mois pour déclarer votre cagnotte. En dehors de cette fenêtre, la saisie est fermée. Si vous la ratez, votre cagnotte du mois n'est pas comptabilisée." onmouseenter="showCardTip(event,this)" onmouseleave="hideCardTip()" ontouchstart="showCardTip(event,this)">?</span>
       </div>
       <div class="theme-wrap">
         <span class="theme-icon" id="theme-icon">🌙</span>
@@ -599,21 +600,21 @@ tr.equalite-row td { background:#fffbe6 !important; }
 
       <div class="stats-grid">
         <div class="stat-box">
-          <div class="stat-label">Cagnotte mars <span class="tutor-bubble" style="vertical-align:middle;">?<div class="tutor-bubble-popup">💰 Votre cashback validé ce mois sur Ebuyclub. C'est le montant que vous déclarez entre le 1er et le 5.</div></span></div>
+          <div class="stat-label">Cagnotte mars <span class="card-tip-btn" style="display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;background:var(--spin-cyan);color:#000;border-radius:50%;font-size:11px;font-weight:800;cursor:pointer;flex-shrink:0;vertical-align:middle;" data-tip="💰 Votre cashback validé ce mois sur Ebuyclub. C'est le montant que vous déclarez entre le 1er et le 5." onmouseenter="showCardTip(event,this)" onmouseleave="hideCardTip()" ontouchstart="showCardTip(event,this)">?</span></div>
           <div class="stat-value green" id="stat-cagnotte">34,50 €</div>
         </div>
         <div class="stat-box">
-          <div class="stat-label">Ebuycard / tuteur <span class="tutor-bubble" style="vertical-align:middle;">?<div class="tutor-bubble-popup">🎁 Montant de l'Ebuycard à envoyer à chacun de vos 2 tuteurs. Calculé automatiquement par blocs de 20 €.</div></span></div>
+          <div class="stat-label">Ebuycard / tuteur <span class="card-tip-btn" style="display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;background:var(--spin-cyan);color:#000;border-radius:50%;font-size:11px;font-weight:800;cursor:pointer;flex-shrink:0;vertical-align:middle;" data-tip="🎁 Montant de l'Ebuycard à envoyer à chacun de vos 2 tuteurs. Calculé automatiquement par blocs de 20 €." onmouseenter="showCardTip(event,this)" onmouseleave="hideCardTip()" ontouchstart="showCardTip(event,this)">?</span></div>
           <div class="stat-value orange" id="stat-redistrib">5,00 €</div>
         </div>
         <div class="stat-box">
-          <div class="stat-label">Points filleuls <span class="tutor-bubble" style="vertical-align:middle;">?<div class="tutor-bubble-popup align-right">👥 1 point = 1 mois qualifié. Ces points s'accumulent et vous permettent d'obtenir un filleul lors des webinaires mensuels.</div></span></div>
+          <div class="stat-label">Points filleuls <span class="card-tip-btn" style="display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;background:var(--spin-cyan);color:#000;border-radius:50%;font-size:11px;font-weight:800;cursor:pointer;flex-shrink:0;vertical-align:middle;" data-tip="👥 1 point = 1 mois qualifié. Ces points s'accumulent et vous permettent d'obtenir un filleul lors des webinaires mensuels." onmouseenter="showCardTip(event,this)" onmouseleave="hideCardTip()" ontouchstart="showCardTip(event,this)">?</span></div>
           <div class="stat-value blue" id="stat-points">1 pt</div>
         </div>
       </div>
 
       <div class="progress-label-row">
-        <span>Seuil de qualification (20 €) <span class="tutor-bubble" style="vertical-align:middle;">?<div class="tutor-bubble-popup">🎯 Seuil de qualification mensuel. Une fois atteint : vous envoyez une Ebuycard (5 €) à chacun de vos 2 tuteurs, vous participez à la tombola, et vous gagnez 1 point filleul — utilisable lors des webinaires pour obtenir un filleul Spincash.</div></span></span>
+        <span>Seuil de qualification (20 €) <span class="card-tip-btn" style="display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;background:var(--spin-cyan);color:#000;border-radius:50%;font-size:11px;font-weight:800;cursor:pointer;flex-shrink:0;vertical-align:middle;" data-tip="🎯 Seuil de qualification mensuel. Une fois atteint : vous envoyez une Ebuycard (5 €) à chacun de vos 2 tuteurs, vous participez à la tombola, et vous gagnez 1 point filleul — utilisable lors des webinaires pour obtenir un filleul Spincash." onmouseenter="showCardTip(event,this)" onmouseleave="hideCardTip()" ontouchstart="showCardTip(event,this)">?</span></span>
         <span id="progress-text" style="font-weight:800;color:#1a6e1a;">34,50 € ✓</span>
       </div>
       <div class="progress-bar-wrap">
@@ -623,13 +624,13 @@ tr.equalite-row td { background:#fffbe6 !important; }
 
       <div class="tutors-row">
         <div class="tutor-box">
-          <div class="tutor-label">Tuteur 1 <span class="tutor-bubble" style="vertical-align:middle;">?<div class="tutor-bubble-popup align-left">🎁 Envoyez une Ebuycard de 5 € à votre tuteur via Ebuyclub. Pensez à virer d'abord votre cagnotte sur votre wallet Ebuycard (+2% !) avant d'acheter les Ebuycards par CB (+0,5% chacune).</div></span></div>
+          <div class="tutor-label">Tuteur 1 <span class="card-tip-btn" style="display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;background:var(--spin-cyan);color:#000;border-radius:50%;font-size:11px;font-weight:800;cursor:pointer;flex-shrink:0;vertical-align:middle;" data-tip="🎁 Envoyez une Ebuycard de 5 € à votre tuteur via Ebuyclub. Pensez à virer d'abord votre cagnotte sur votre wallet Ebuycard (+2% !) avant d'acheter les Ebuycards par CB (+0,5% chacune)." onmouseenter="showCardTip(event,this)" onmouseleave="hideCardTip()" ontouchstart="showCardTip(event,this)">?</span></div>
           <div class="tutor-name">Jean Dupont</div>
           <div class="tutor-amount ok" id="tutor1-amount">→ Ebuycard 5 € à envoyer</div>
           <div class="tutor-paypal">📧 <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="5a303f3b34743e2f2a35342e1a373b333674393537">[email&#160;protected]</a></div>
         </div>
         <div class="tutor-box">
-          <div class="tutor-label">Tuteur 2 <span class="tutor-bubble" style="vertical-align:middle;">?<div class="tutor-bubble-popup align-right">🎁 Même procédure pour le tuteur 2. Cochez "Je souhaite l'offrir" sur Ebuyclub et saisissez l'email de votre tuteur. Il recevra un email avec un code à activer dans son wallet.</div></span></div>
+          <div class="tutor-label">Tuteur 2 <span class="card-tip-btn" style="display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;background:var(--spin-cyan);color:#000;border-radius:50%;font-size:11px;font-weight:800;cursor:pointer;flex-shrink:0;vertical-align:middle;" data-tip="🎁 Même procédure pour le tuteur 2. Cochez "Je souhaite l'offrir" sur Ebuyclub et saisissez l'email de votre tuteur. Il recevra un email avec un code à activer dans son wallet." onmouseenter="showCardTip(event,this)" onmouseleave="hideCardTip()" ontouchstart="showCardTip(event,this)">?</span></div>
           <div class="tutor-name">Sophie Martin</div>
           <div class="tutor-amount ok" id="tutor2-amount">→ Ebuycard 5 € à envoyer</div>
           <div class="tutor-paypal">📧 <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="60130f100809054e0d011214090e200d01090c4e030f0d">[email&#160;protected]</a></div>
@@ -643,14 +644,14 @@ tr.equalite-row td { background:#fffbe6 !important; }
 
       <div class="challenges-row">
         <div class="challenge-box tirage">
-          <div class="challenge-title pink">🎰 Tombola mensuelle <span class="tutor-bubble" style="vertical-align:middle;background:var(--spin-pink);">?<div class="tutor-bubble-popup align-left" style="border-color:var(--spin-pink);">🎰 Participation automatique si vous êtes qualifié ET que vous avez envoyé vos Ebuycards aux tuteurs. Des bons d'achat de 10 € sont tirés au sort parmi tous les membres qualifiés.</div></span></div>
+          <div class="challenge-title pink">🎰 Tombola mensuelle <span class="card-tip-btn" style="display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;background:var(--spin-pink);color:#000;border-radius:50%;font-size:11px;font-weight:800;cursor:pointer;flex-shrink:0;vertical-align:middle;" data-tip="🎰 Participation automatique si vous êtes qualifié ET que vous avez envoyé vos Ebuycards aux tuteurs. Des bons d'achat de 10 € sont tirés au sort parmi tous les membres qualifiés." onmouseenter="showCardTip(event,this)" onmouseleave="hideCardTip()" ontouchstart="showCardTip(event,this)">?</span></div>
           <div class="challenge-desc">
             Qualifié(e) + redistribution effectuée → participation automatique.<br>
             Bons d'achat à gagner selon la cagnotte de l'admin (min. 50 €).
           </div>
         </div>
         <div class="challenge-box filleuls">
-          <div class="challenge-title blue">👥 Challenge filleuls <span class="tutor-bubble" style="vertical-align:middle;background:var(--spin-blue);">?<div class="tutor-bubble-popup align-right" style="border-color:var(--spin-blue);">👥 Chaque mois qualifié = 1 point. Ces points s'accumulent. Lors des webinaires mensuels, l'admin distribue des filleuls Spincash dans l'ordre du classement. Après attribution, le compteur repart à zéro.</div></span></div>
+          <div class="challenge-title blue">👥 Challenge filleuls <span class="card-tip-btn" style="display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;background:var(--spin-blue);color:#000;border-radius:50%;font-size:11px;font-weight:800;cursor:pointer;flex-shrink:0;vertical-align:middle;" data-tip="👥 Chaque mois qualifié = 1 point. Ces points s'accumulent. Lors des webinaires mensuels, l'admin distribue des filleuls Spincash dans l'ordre du classement. Après attribution, le compteur repart à zéro." onmouseenter="showCardTip(event,this)" onmouseleave="hideCardTip()" ontouchstart="showCardTip(event,this)">?</span></div>
           <div class="challenge-desc">
             <span class="pts-big" id="challenge-pts" style="color:var(--spin-blue);">1</span>
             <span style="font-size:13px;font-weight:700;"> pt accumulé</span><br>
@@ -663,7 +664,7 @@ tr.equalite-row td { background:#fffbe6 !important; }
       <div class="input-section">
         <div style="font-size:11px;font-weight:700;color:var(--text-muted);margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px;display:flex;align-items:center;gap:6px;">
           Saisir ma cagnotte Ebuyclub du mois
-          <span class="tutor-bubble">?<div class="tutor-bubble-popup">📝 Saisissez uniquement le montant <strong style="color:#39e239;">Validés</strong> (en vert) visible sur votre page Ebuyclub. Pas le total, pas "En attente". Joignez ensuite une capture d'écran — l'IA vérifie automatiquement le montant.</div></span>
+          <span class="card-tip-btn" style="display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;background:var(--spin-cyan);color:#000;border-radius:50%;font-size:11px;font-weight:800;cursor:pointer;flex-shrink:0;vertical-align:middle;" data-tip="📝 Saisissez uniquement le montant Validés (en vert) visible sur votre page Ebuyclub. Pas le total, pas "En attente". Joignez ensuite une capture d'écran — l'IA vérifie automatiquement le montant." onmouseenter="showCardTip(event,this)" onmouseleave="hideCardTip()" ontouchstart="showCardTip(event,this)">?</span>
         </div>
 
         <!-- Reliquat reporté -->
@@ -715,7 +716,7 @@ tr.equalite-row td { background:#fffbe6 !important; }
         <div class="section-title" style="margin-bottom:1rem;">
           <span class="dot" style="background:var(--spin-green)"></span>
           Historique de ma cagnotte
-          <span class="tutor-bubble" style="margin-left:6px;">?<div class="tutor-bubble-popup align-left">📈 Visualisez votre cashback mois par mois. Basculez entre la courbe et les barres. Le total cumulé, meilleur mois et moyenne sont affichés en bas.</div></span>
+          <span class="card-tip-btn" style="display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;background:var(--spin-cyan);color:#000;border-radius:50%;font-size:11px;font-weight:800;cursor:pointer;flex-shrink:0;vertical-align:middle;" data-tip="📈 Visualisez votre cashback mois par mois. Basculez entre la courbe et les barres. Le total cumulé, meilleur mois et moyenne sont affichés en bas." onmouseenter="showCardTip(event,this)" onmouseleave="hideCardTip()" ontouchstart="showCardTip(event,this)">?</span>
         </div>
         <div style="display:flex;gap:8px;margin-bottom:1rem;flex-wrap:wrap;">
           <button class="chart-tab active" onclick="switchChart('membre','courbe',this)">Courbe</button>
@@ -737,7 +738,7 @@ tr.equalite-row td { background:#fffbe6 !important; }
           <div class="section-title" style="margin-bottom:0;">
             <span class="dot" style="background:var(--spin-yellow)"></span>
             🧮 Calculateur de gains Spincash
-            <span class="tutor-bubble" style="margin-left:6px;background:var(--spin-yellow);">?<div class="tutor-bubble-popup align-left" style="border-color:var(--spin-yellow);">🧮 Simulez vos gains futurs en jouant avec les curseurs : vos achats, votre taux de cashback, et le nombre de filleuls sur 2 niveaux. La projection sur 12 mois montre l'impact cumulé du réseau.</div></span>
+            <span class="card-tip-btn" style="display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;background:var(--spin-yellow);color:#000;border-radius:50%;font-size:11px;font-weight:800;cursor:pointer;flex-shrink:0;vertical-align:middle;" data-tip="🧮 Simulez vos gains futurs en jouant avec les curseurs : vos achats, votre taux de cashback, et le nombre de filleuls sur 2 niveaux. La projection sur 12 mois montre l'impact cumulé du réseau." onmouseenter="showCardTip(event,this)" onmouseleave="hideCardTip()" ontouchstart="showCardTip(event,this)">?</span>
           </div>
           <span id="calc-chevron" style="font-size:18px;color:var(--spin-yellow);transition:transform .3s;">▼</span>
         </div>
@@ -836,7 +837,7 @@ tr.equalite-row td { background:#fffbe6 !important; }
 
       <!-- Parrainer un filleul -->
       <div class="affiliate-box">
-        <div class="affiliate-title">➕ Parrainer un nouveau membre <span class="tutor-bubble" style="vertical-align:middle;background:var(--spin-pink);">?<div class="tutor-bubble-popup align-left" style="border-color:var(--spin-pink);">👥 Saisissez l'email d'une personne que vous souhaitez inviter. Elle recevra un email avec votre lien affilié Ebuyclub. Vous toucherez 3 € dès son 1er achat + 10% de son cashback à vie ! ⚠️ Si elle a déjà un compte Ebuyclub, elle doit le fermer d'abord.</div></span></div>
+        <div class="affiliate-title">➕ Parrainer un nouveau membre <span class="card-tip-btn" style="display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;background:var(--spin-pink);color:#000;border-radius:50%;font-size:11px;font-weight:800;cursor:pointer;flex-shrink:0;vertical-align:middle;" data-tip="👥 Saisissez l'email d'une personne que vous souhaitez inviter. Elle recevra un email avec votre lien affilié Ebuyclub. Vous toucherez 3 € dès son 1er achat + 10% de son cashback à vie ! ⚠️ Si elle a déjà un compte Ebuyclub, elle doit le fermer d'abord." onmouseenter="showCardTip(event,this)" onmouseleave="hideCardTip()" ontouchstart="showCardTip(event,this)">?</span></div>
         <div class="affiliate-desc">Inscrivez une personne directement via votre lien affilié Ebuyclub. Elle sera rattachée à votre compte Spincash et recevra une présentation automatique de la communauté.</div>
         <div style="margin:.5rem 0;padding:8px 12px;background:#2a0000;border:1px solid #e63329;border-radius:8px;font-size:11px;line-height:1.6;color:#ddd;">
           ⚠️ <strong style="color:#e63329;">La personne a déjà un compte Ebuyclub ?</strong> Elle doit d'abord le <strong style="color:#fff;">fermer</strong> et créer un <strong style="color:#fff;">nouveau compte avec une nouvelle adresse email</strong> via votre lien — sinon le parrainage ne sera pas rattaché.
@@ -1562,6 +1563,28 @@ function previewNotif() {
 
 // Charger la notif au démarrage
 afficherNotif();
+
+// ── TOOLTIP FIXE ──
+function showCardTip(e, el) {
+  e.stopPropagation();
+  const tip = document.getElementById('card-tooltip');
+  tip.textContent = el.dataset.tip;
+  tip.style.display = 'block';
+  const r = el.getBoundingClientRect();
+  const tw = 260;
+  let left = r.left + r.width/2 - tw/2;
+  if (left < 8) left = 8;
+  if (left + tw > window.innerWidth - 8) left = window.innerWidth - tw - 8;
+  tip.style.left = left + 'px';
+  tip.style.top = (r.bottom + 8) + 'px';
+}
+function hideCardTip() {
+  const tip = document.getElementById('card-tooltip');
+  if (tip) tip.style.display = 'none';
+}
+document.addEventListener('touchstart', function(e) {
+  if (!e.target.closest('.card-tip-btn')) hideCardTip();
+});
 
 // ── GUIDE INTERACTIF ──
 let guideIndex = 0;
