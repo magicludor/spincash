@@ -48,10 +48,53 @@ body{background:var(--black);color:var(--text);font-family:'Nunito',sans-serif;m
 }
 .refresh-info{font-size:11px;color:#555;margin-top:6px;text-align:right;}
 
+/* ── BULLES DE TUTORAT ── */
+.tutor-bubble {
+  position:relative;display:inline-flex;align-items:center;justify-content:center;
+  width:20px;height:20px;background:#29c8e6;color:#000;border-radius:50%;
+  font-size:11px;font-weight:800;cursor:pointer;flex-shrink:0;transition:transform .2s;user-select:none;
+  z-index:1;
+}
+.tutor-bubble:hover, .tutor-bubble.open { transform:scale(1.15); z-index:1001; }
+.tutor-bubble-popup {
+  display:none;position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);
+  background:#1a1a2e;border:1.5px solid #29c8e6;border-radius:10px;
+  padding:10px 14px;font-size:12px;color:#ddd;line-height:1.6;width:270px;
+  z-index:1002;box-shadow:0 4px 20px rgba(0,0,0,.6);font-family:'Nunito',sans-serif;font-weight:600;
+  pointer-events:none;text-transform:none;letter-spacing:normal;
+}
+/* flèche vers le HAUT (défaut) — cachée par défaut, visible au hover */
+.tutor-bubble-popup::after {
+  content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);
+  border:6px solid transparent;border-top-color:#29c8e6;
+  display:none;
+}
+/* afficher popup + sa flèche uniquement au hover/open */
+.tutor-bubble:hover .tutor-bubble-popup,
+.tutor-bubble.open .tutor-bubble-popup { display:block; }
+.tutor-bubble:hover .tutor-bubble-popup:not(.down)::after,
+.tutor-bubble.open .tutor-bubble-popup:not(.down)::after { display:block; }
+/* popup vers le BAS */
+.tutor-bubble-popup.down { bottom:auto;top:calc(100% + 8px); }
+.tutor-bubble-popup.down::after { top:auto;bottom:100%;border-top-color:transparent;border-bottom-color:#29c8e6;display:none; }
+.tutor-bubble:hover .tutor-bubble-popup.down::after,
+.tutor-bubble.open .tutor-bubble-popup.down::after { display:block; }
+/* alignements horizontaux */
+.tutor-bubble-popup.align-left { left:0;transform:none; }
+.tutor-bubble-popup.align-left::after { left:10px;transform:none; }
+.tutor-bubble-popup.down.align-left { left:0;transform:none; }
+.tutor-bubble-popup.down.align-left::after { left:10px;transform:none; }
+.tutor-bubble-popup.align-right { left:auto;right:0;transform:none; }
+.tutor-bubble-popup.align-right::after { left:auto;right:10px;transform:none; }
+/* élever la card contenant une bulle active */
+.offer-card { position:relative; }
+.offer-card:has(.tutor-bubble:hover), .offer-card:has(.tutor-bubble.open) { z-index:100; }
+
 /* FILTRES */
 .filters{
   max-width:1200px;margin:0 auto;padding:0 2rem 1.5rem;
   display:flex;gap:8px;flex-wrap:wrap;align-items:center;
+  position:relative;z-index:10;overflow:visible;
 }
 .filter-btn{
   padding:7px 16px;border-radius:20px;border:1.5px solid #2a2a2a;
@@ -81,6 +124,7 @@ body{background:var(--black);color:var(--text);font-family:'Nunito',sans-serif;m
 .offers-grid{
   max-width:1200px;margin:0 auto;padding:0 2rem 3rem;
   display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem;
+  position:relative;z-index:1;
 }
 
 /* CARD */
@@ -92,7 +136,7 @@ body{background:var(--black);color:var(--text);font-family:'Nunito',sans-serif;m
 }
 .offer-card:hover{transform:translateY(-3px);border-color:#333;}
 .card-accent{height:3px;width:100%;}
-.card-body{padding:1.25rem;}
+.card-body{padding:1.25rem;border-radius:0 0 14px 14px;overflow:hidden;}
 .card-cat{
   font-size:10px;font-weight:800;letter-spacing:1px;text-transform:uppercase;
   margin-bottom:.5rem;display:flex;align-items:center;gap:6px;
@@ -189,9 +233,8 @@ body.light .search-wrap input { background:#fff; border-color:#ccc; color:#1a1a1
   <div class="slogan">Transformez vos achats en gains</div>
   <div class="header-nav">
     <a href="spincash-accueil.html" class="btn-nav">← Accueil</a>
-    <button class="btn-nav" onclick="document.getElementById('guide-offres').scrollIntoView({behavior:'smooth'});setTimeout(()=>{if(document.getElementById('guide-body').style.display!=='block')toggleGuide();},400);" style="position:relative;">
-      📖 Guide
-      <span style="position:absolute;top:-4px;right:-4px;background:var(--cyan);color:#000;font-size:9px;font-weight:800;padding:1px 5px;border-radius:8px;">8</span>
+    <button class="btn-nav" onclick="document.getElementById('guide-offres').scrollIntoView({behavior:'smooth'});setTimeout(()=>{if(document.getElementById('guide-body').style.display!=='block')toggleGuide();},400);" >
+      📖 Guide <span style="background:var(--cyan);color:#000;font-size:9px;font-weight:800;padding:1px 5px;border-radius:8px;margin-left:3px;">8</span>
     </button>
     <a href="spincash-dashboard.html" class="btn-nav">Mon espace</a>
     <a href="#" class="btn-nav active">🛍️ Offres du jour</a>
@@ -218,6 +261,9 @@ body.light .search-wrap input { background:#fff; border-color:#ccc; color:#1a1a1
 </div>
 
 <!-- GUIDE INTERACTIF -->
+<!-- Tooltip global pour les cards offres -->
+<div id="card-tooltip" style="display:none;position:fixed;z-index:9999;background:#1a1a2e;border:1.5px solid #29c8e6;border-radius:10px;padding:10px 14px;font-size:12px;color:#ddd;line-height:1.6;width:260px;box-shadow:0 4px 20px rgba(0,0,0,.6);font-family:'Nunito',sans-serif;font-weight:600;pointer-events:none;text-transform:none;letter-spacing:normal;"></div>
+
 <div id="guide-offres" style="max-width:1200px;margin:0 auto 1.5rem;padding:0 2rem;">
   <div style="background:#141414;border:1.5px solid #003a3a;border-radius:14px;overflow:hidden;">
     <div onclick="toggleGuide()" style="padding:.85rem 1.25rem;cursor:pointer;display:flex;align-items:center;justify-content:space-between;user-select:none;background:linear-gradient(90deg,#001a1a,transparent);">
@@ -231,7 +277,7 @@ body.light .search-wrap input { background:#fff; border-color:#ccc; color:#1a1a1
       </div>
       <span id="guide-chevron" style="font-size:18px;color:#29c8e6;transition:transform .3s;">▼</span>
     </div>
-    <div id="guide-body" style="display:none;border-top:1px solid #003a3a;">
+    <div id="guide-body" style="display:none;border-top:1px solid #003a3a;overflow:hidden;border-radius:0 0 14px 14px;">
       <div style="padding:1rem 1.25rem 0;">
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
           <span style="font-size:11px;font-weight:800;color:#888;text-transform:uppercase;letter-spacing:.5px;">Étape <span id="guide-current">1</span> / <span id="guide-total">8</span></span>
@@ -259,6 +305,7 @@ body.light .search-wrap input { background:#fff; border-color:#ccc; color:#1a1a1
   <button class="filter-btn" data-cat="bons" onclick="filtrer('bons',this)">🎁 Bons d'achat</button>
   <button class="filter-btn" data-cat="magasin" onclick="filtrer('magasin',this)">🏪 En magasin</button>
   <button class="filter-btn" data-cat="promo" onclick="filtrer('promo',this)">🏷️ Codes promo</button>
+  <span class="tutor-bubble" style="margin-left:4px;">?<div class="tutor-bubble-popup down align-left">🔍 Filtrez les offres par type de cashback ou recherchez un marchand directement. <strong style="color:#29c8e6;">En exclusivité</strong> = meilleurs taux du moment, souvent limités dans le temps !</div></span>
   <div class="search-wrap">
     <input type="text" placeholder="Rechercher un marchand..." oninput="rechercher(this.value)" id="search-input" />
   </div>
@@ -269,7 +316,9 @@ body.light .search-wrap input { background:#fff; border-color:#ccc; color:#1a1a1
 
 <!-- LIENS RAPIDES EBUYCLUB -->
 <div class="quick-links">
-  <div class="quick-links-title">Accès direct Ebuyclub →</div>
+  <div class="quick-links-title">Accès direct Ebuyclub →
+    <span class="tutor-bubble" style="margin-left:8px;vertical-align:middle;">?<div class="tutor-bubble-popup align-left">🔗 Ces liens vous emmènent directement sur les sections Ebuyclub les plus utiles — bons d'achat, cashback en magasin, codes promo et votre cagnotte.</div></span>
+  </div>
   <div class="quick-links-grid">
     <a href="https://www.ebuyclub.com/en-exclu" target="_blank" class="quick-link-card">
       <div class="quick-link-icon">⚡</div>
@@ -306,7 +355,7 @@ body.light .search-wrap input { background:#fff; border-color:#ccc; color:#1a1a1
         <div class="quick-link-sub">+3200 marchands partenaires</div>
       </div>
     </a>
-    <a href="https://www.ebuyclub.com/moncompte/cagnotte" target="_blank" class="quick-link-card">
+    <a href="https://www.ebuyclub.com/login" target="_blank" class="quick-link-card">
       <div class="quick-link-icon">💼</div>
       <div>
         <div class="quick-link-label">Ma cagnotte</div>
@@ -336,10 +385,10 @@ const offres = [
   { id:9, cat:'cashback', marchand:'Airbnb', emoji:'🏠', desc:'Locations courte et longue durée partout dans le monde', taux:'4%', label:'Cashback en ligne', tag:'hot', tagLabel:'HOT', couleur:'#39e239', url:'https://www.ebuyclub.com/cashback/airbnb' },
 
   // BONS D'ACHAT
-  { id:10, cat:'bons', marchand:'Fnac', emoji:'📚', desc:'Bon d\'achat + 10% de cashback Ebuyclub instantané', taux:'+10%', label:'Cashback sur bon', tag:'hot', tagLabel:'HOT', couleur:'#29c8e6', url:'https://www.ebuyclub.com/bons-d-achat/fnac' },
-  { id:11, cat:'bons', marchand:'Carrefour', emoji:'🛍️', desc:'Courses alimentaires et produits du quotidien', taux:'+6%', label:'Cashback sur bon', tag:'', tagLabel:'', couleur:'#29c8e6', url:'https://www.ebuyclub.com/bons-d-achat/carrefour' },
-  { id:12, cat:'bons', marchand:'Amazon', emoji:'📦', desc:'Bon d\'achat Amazon avec cashback immédiat', taux:'+4%', label:'Cashback sur bon', tag:'new', tagLabel:'NEW', couleur:'#29c8e6', url:'https://www.ebuyclub.com/bons-d-achat/amazon' },
-  { id:13, cat:'bons', marchand:'Leclerc', emoji:'🛒', desc:'Courses et produits Leclerc — utilisable en magasin', taux:'+5%', label:'Cashback sur bon', tag:'', tagLabel:'', couleur:'#29c8e6', url:'https://www.ebuyclub.com/bons-d-achat/leclerc' },
+  { id:10, cat:'bons', marchand:'Fnac', emoji:'📚', desc:'Bon d\'achat + 10% de cashback Ebuyclub instantané', taux:'+10%', label:'Cashback sur bon', tag:'hot', tagLabel:'HOT', couleur:'#29c8e6', url:'https://www.ebuyclub.com/bons-d-achat' },
+  { id:11, cat:'bons', marchand:'Carrefour', emoji:'🛍️', desc:'Courses alimentaires et produits du quotidien', taux:'+6%', label:'Cashback sur bon', tag:'', tagLabel:'', couleur:'#29c8e6', url:'https://www.ebuyclub.com/bons-d-achat' },
+  { id:12, cat:'bons', marchand:'Amazon', emoji:'📦', desc:'Bon d\'achat Amazon avec cashback immédiat', taux:'+4%', label:'Cashback sur bon', tag:'new', tagLabel:'NEW', couleur:'#29c8e6', url:'https://www.ebuyclub.com/bons-d-achat' },
+  { id:13, cat:'bons', marchand:'Leclerc', emoji:'🛒', desc:'Courses et produits Leclerc — utilisable en magasin', taux:'+5%', label:'Cashback sur bon', tag:'', tagLabel:'', couleur:'#29c8e6', url:'https://www.ebuyclub.com/bons-d-achat' },
 
   // CASHBACK EN MAGASIN
   { id:14, cat:'magasin', marchand:'Monoprix', emoji:'🥗', desc:'Courses du quotidien — scannez votre ticket de caisse', taux:'3%', label:'Cashback magasin', tag:'', tagLabel:'', couleur:'#f58c1a', url:'https://www.ebuyclub.com/cashback-en-magasin' },
@@ -347,9 +396,9 @@ const offres = [
   { id:16, cat:'magasin', marchand:'Nike', emoji:'👟', desc:'Chaussures et vêtements de sport — boutiques officielles', taux:'4%', label:'Cashback magasin', tag:'', tagLabel:'', couleur:'#f58c1a', url:'https://www.ebuyclub.com/cashback-en-magasin' },
 
   // CODES PROMO
-  { id:17, cat:'promo', marchand:'Shein', emoji:'👘', desc:'-15% sur votre commande — cumulable avec le cashback', taux:'-15%', label:'Code promo', tag:'exclu', tagLabel:'EXCLU', couleur:'#e91e8c', url:'https://www.ebuyclub.com/codes-promo/shein' },
-  { id:18, cat:'promo', marchand:'AliExpress', emoji:'🎁', desc:'-10% dès 20€ d\'achat — offre limitée', taux:'-10%', label:'Code promo', tag:'hot', tagLabel:'HOT', couleur:'#e91e8c', url:'https://www.ebuyclub.com/codes-promo/aliexpress' },
-  { id:19, cat:'promo', marchand:'Cdiscount', emoji:'🛒', desc:'-5% supplémentaires sur les promos en cours', taux:'-5%', label:'Code promo', tag:'', tagLabel:'', couleur:'#e91e8c', url:'https://www.ebuyclub.com/codes-promo/cdiscount' },
+  { id:17, cat:'promo', marchand:'Shein', emoji:'👘', desc:'-15% sur votre commande — cumulable avec le cashback', taux:'-15%', label:'Code promo', tag:'exclu', tagLabel:'EXCLU', couleur:'#e91e8c', url:'https://www.ebuyclub.com/codes-promo' },
+  { id:18, cat:'promo', marchand:'AliExpress', emoji:'🎁', desc:'-10% dès 20€ d\'achat — offre limitée', taux:'-10%', label:'Code promo', tag:'hot', tagLabel:'HOT', couleur:'#e91e8c', url:'https://www.ebuyclub.com/codes-promo' },
+  { id:19, cat:'promo', marchand:'Cdiscount', emoji:'🛒', desc:'-5% supplémentaires sur les promos en cours', taux:'-5%', label:'Code promo', tag:'', tagLabel:'', couleur:'#e91e8c', url:'https://www.ebuyclub.com/codes-promo' },
 ];
 
 let catActive = 'tous';
@@ -365,12 +414,20 @@ function renderCards(liste) {
     grid.innerHTML = '<div class="empty">Aucune offre trouvée pour cette recherche.</div>';
     return;
   }
+  const tips = {
+    exclu: 'Cashback boosté temporaire — profitez-en vite, ces taux ne durent pas !',
+    cashback: 'Activez le cashback sur Ebuyclub AVANT de faire votre achat — restez sur le même onglet.',
+    bons: 'Cashback instantané ! Le bon est livré dans l\'appli Ebuyclub. Photographiez le code barre avant d\'aller en magasin.',
+    magasin: 'Liez votre CB une fois dans l\'appli (cashback connecté) ou scannez votre ticket de caisse.',
+    promo: 'Code de réduction utilisable immédiatement — vérifiez s\'il est cumulable avec le cashback.',
+  };
   grid.innerHTML = liste.map(o => `
     <div class="offer-card">
       <div class="card-accent" style="background:${o.couleur};"></div>
       <div class="card-body">
-        <div class="card-cat" style="color:${o.couleur};">
+        <div class="card-cat" style="color:${o.couleur};display:flex;align-items:center;gap:6px;">
           <span>${o.emoji}</span> ${o.label}
+          <span class="card-tip-btn" style="display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;background:${o.couleur};color:#000;border-radius:50%;font-size:10px;font-weight:800;cursor:pointer;flex-shrink:0;margin-left:4px;" data-tip="${tips[o.cat] || ''}" onmouseenter="showCardTip(event,this)" onmouseleave="hideCardTip()" ontouchstart="showCardTip(event,this)">?</span>
         </div>
         <div class="card-merchant">${o.marchand}</div>
         <div class="card-desc">${o.desc}</div>
@@ -386,6 +443,19 @@ function renderCards(liste) {
     </div>
   `).join('');
 }
+
+// Bulles mobile (tap)
+document.addEventListener('click', function(e) {
+  const bubble = e.target.closest('.tutor-bubble');
+  if (bubble) {
+    e.stopPropagation();
+    const isOpen = bubble.classList.contains('open');
+    document.querySelectorAll('.tutor-bubble.open').forEach(b => b.classList.remove('open'));
+    if (!isOpen) bubble.classList.add('open');
+  } else {
+    document.querySelectorAll('.tutor-bubble.open').forEach(b => b.classList.remove('open'));
+  }
+});
 
 function filtrer(cat, btn) {
   catActive = cat;
@@ -424,6 +494,24 @@ function toggleThemeOffres() {
 }
 // Restore theme
 if (localStorage.getItem('spincash-theme-offres') === 'light') toggleThemeOffres();
+
+// ── TOOLTIP CARDS ──
+function showCardTip(e, el) {
+  const tip = document.getElementById('card-tooltip');
+  tip.textContent = el.dataset.tip;
+  tip.style.display = 'block';
+  const r = el.getBoundingClientRect();
+  const tw = 260;
+  let left = r.left + r.width/2 - tw/2;
+  if (left < 8) left = 8;
+  if (left + tw > window.innerWidth - 8) left = window.innerWidth - tw - 8;
+  tip.style.left = left + 'px';
+  tip.style.top = (r.top - 8) + 'px';
+  tip.style.transform = 'translateY(-100%)';
+}
+function hideCardTip() {
+  document.getElementById('card-tooltip').style.display = 'none';
+}
 
 // ── GUIDE INTERACTIF ──
 let guideIndex = 0;
