@@ -449,15 +449,20 @@ tr.equalite-row td { background:#fffbe6 !important; }
 /* RESPONSIVE */
 @media (max-width:700px) {
   body { padding:.75rem .75rem 3rem; }
-  .header { padding:.65rem .9rem; border-radius:12px; gap:6px; }
+  .header { padding:.65rem .9rem; border-radius:12px; gap:4px; }
   .slogan { display:none; }
-  .tile { width:21px; height:21px; font-size:13px; }
-  .logo-tiles { gap:3px; }
-  .logo-area { gap:3px; }
-  #btn-switch-view { font-size:10px !important; padding:4px 8px !important; }
-  #profil-badge { font-size:10px !important; padding:4px 8px !important; }
-  .header a[href="spincash-accueil.html"] { display:none; }
-  .header a[href="spincash-offres.html"] { font-size:10px !important; padding:4px 8px !important; }
+  .tile { width:20px; height:20px; font-size:12px; }
+  .logo-tiles { gap:2px; }
+  .logo-area { gap:2px; }
+  /* Boutons nav compacts — icône + texte court */
+  .nav-btn-dash { font-size:10px !important; padding:4px 7px !important; }
+  #profil-badge { font-size:10px !important; padding:4px 7px !important; }
+  #btn-switch-view { font-size:10px !important; padding:4px 7px !important; }
+  /* Cacher "← Accueil" */
+  a.nav-btn-dash[href="spincash-accueil.html"] { display:none; }
+  /* Cacher texte du switch, garder icône */
+  .btn-switch-label { font-size:0; }
+  .btn-switch-label::first-letter { font-size:14px; }
   .nav-tabs { width:100%; }
   .tab-btn { flex:1; text-align:center; padding:7px 4px; font-size:11px; }
   .admin-stats { grid-template-columns:repeat(2,1fr); }
@@ -520,10 +525,10 @@ tr.equalite-row td { background:#fffbe6 !important; }
       <div class="slogan">Transformez vos achats en gains</div>
     </div>
     <div style="display:flex;align-items:center;gap:8px;">
-      <a href="spincash-accueil.html" style="padding:5px 12px;border-radius:20px;border:1.5px solid #333;color:#aaa;font-family:'Nunito',sans-serif;font-size:11px;font-weight:700;text-decoration:none;white-space:nowrap;" onmouseover="this.style.borderColor='#666';this.style.color='#fff'" onmouseout="this.style.borderColor='#333';this.style.color='#aaa'">← Accueil</a>
-      <a href="spincash-offres.html" style="padding:5px 12px;border-radius:20px;border:1.5px solid #333;color:#f58c1a;font-family:'Nunito',sans-serif;font-size:11px;font-weight:700;text-decoration:none;white-space:nowrap;" onmouseover="this.style.borderColor='#f58c1a'" onmouseout="this.style.borderColor='#333'">🛍️ Offres</a>
+      <a href="spincash-accueil.html" class="nav-btn-dash" style="padding:5px 12px;border-radius:20px;border:1.5px solid #333;color:#aaa;font-family:'Nunito',sans-serif;font-size:11px;font-weight:700;text-decoration:none;white-space:nowrap;" onmouseover="this.style.borderColor='#666';this.style.color='#fff'" onmouseout="this.style.borderColor='#333';this.style.color='#aaa'">← Accueil</a>
+      <a href="spincash-offres.html" class="nav-btn-dash" style="padding:5px 12px;border-radius:20px;border:1.5px solid #333;color:#f58c1a;font-family:'Nunito',sans-serif;font-size:11px;font-weight:700;text-decoration:none;white-space:nowrap;" onmouseover="this.style.borderColor='#f58c1a'" onmouseout="this.style.borderColor='#333'">🛍️ Offres</a>
       <span id="profil-badge" style="padding:5px 12px;border-radius:20px;font-size:11px;font-weight:800;white-space:nowrap;"></span>
-      <button id="btn-switch-view" onclick="switchViewManual()" style="padding:5px 12px;border-radius:20px;font-size:11px;font-weight:800;background:transparent;border:1.5px solid #333;color:#aaa;cursor:pointer;white-space:nowrap;" onmouseover="this.style.borderColor='#666';this.style.color='#fff'" onmouseout="this.style.borderColor='#333';this.style.color='#aaa'"></button>
+      <button id="btn-switch-view" onclick="switchViewManual()" style="padding:5px 12px;border-radius:20px;font-size:11px;font-weight:800;background:transparent;border:1.5px solid #333;color:#aaa;cursor:pointer;white-space:nowrap;" onmouseover="this.style.borderColor='#666';this.style.color='#fff'" onmouseout="this.style.borderColor='#333';this.style.color='#aaa'"><span class="btn-switch-label"></span></button>
     </div>
   </div>
 
@@ -2309,13 +2314,13 @@ function switchViewManual() {
   const adminVisible = document.getElementById('view-admin').classList.contains('active');
   if (adminVisible) {
     switchView('membre');
-    document.getElementById('btn-switch-view').textContent = '🛠️ Vue Admin';
+    document.getElementById('btn-switch-view').querySelector('.btn-switch-label').textContent = '🛠️ Vue Admin';
     document.getElementById('profil-badge').textContent = '👤 Membre';
     document.getElementById('profil-badge').style.cssText = 'padding:6px 14px;border-radius:20px;font-size:12px;font-weight:800;background:#001a00;color:#39e239;border:1px solid #003a00;';
     setTimeout(() => renderMembreChart(), 50);
   } else {
     switchView('admin');
-    document.getElementById('btn-switch-view').textContent = '👤 Vue Membre';
+    document.getElementById('btn-switch-view').querySelector('.btn-switch-label').textContent = '👤 Vue Membre';
     document.getElementById('profil-badge').textContent = '🛠️ Admin';
     document.getElementById('profil-badge').style.cssText = 'padding:6px 14px;border-radius:20px;font-size:12px;font-weight:800;background:#1a1a00;color:#f5e642;border:1px solid #3a3a00;';
     setTimeout(() => { renderAdminChart(); populerSelectAdmin(); }, 50);
@@ -2337,12 +2342,12 @@ function switchView(view) {
     document.getElementById('view-admin').classList.add('active');
     badge.textContent = '🛠️ Admin';
     badge.style.cssText = 'padding:6px 14px;border-radius:20px;font-size:12px;font-weight:800;background:#1a1a00;color:#f5e642;border:1px solid #3a3a00;';
-    document.getElementById('btn-switch-view').textContent = '👤 Vue Membre';
+    document.getElementById('btn-switch-view').querySelector('.btn-switch-label').textContent = '👤 Vue Membre';
     setTimeout(() => { renderAdminChart(); populerSelectAdmin(); }, 200);
   } else {
     badge.textContent = '👤 Membre';
     badge.style.cssText = 'padding:6px 14px;border-radius:20px;font-size:12px;font-weight:800;background:#001a00;color:#39e239;border:1px solid #003a00;';
-    document.getElementById('btn-switch-view').textContent = '🛠️ Vue Admin';
+    document.getElementById('btn-switch-view').querySelector('.btn-switch-label').textContent = '🛠️ Vue Admin';
     setTimeout(() => renderMembreChart(), 200);
   }
 })();
